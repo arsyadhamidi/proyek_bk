@@ -11,10 +11,11 @@
                         <i class="fas fa-arrow-alt-circle-left"></i>
                         Kembali
                     </a>
-                    {{--  <a href="#" class="btn bg-gradient-danger">
+                    <a href="{{ route('bimbingan-siswa.show', Auth()->user()->gurubk_id) }}" class="btn bg-gradient-danger"
+                        target="_blank">
                         <i class="fas fa-print"></i>
                         Download Rekap Data Siswa Bimbingan
-                    </a>  --}}
+                    </a>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-striped" id="myTable">

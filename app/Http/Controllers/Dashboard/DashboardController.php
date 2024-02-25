@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
+use PDF;
 use App\Models\User;
+use App\Models\Siswa;
+use App\Models\GuruBk;
+use App\Models\Jurusan;
+use App\Models\WaliKelas;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,7 +17,16 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard.index');
+        $jurusans = Jurusan::all()->count();
+        $siswas = Siswa::all()->count();
+        $walikelass = WaliKelas::all()->count();
+        $gurubks = GuruBk::all()->count();
+        return view('admin.dashboard.index', [
+            'jurusans' => $jurusans,
+            'siswas' => $siswas,
+            'walikelass' => $walikelass,
+            'gurubks' => $gurubks,
+        ]);
     }
 
     public function settingprofile(Request $request)
@@ -97,5 +111,17 @@ class DashboardController extends Controller
         ]);
 
         return redirect('/dashboard')->with('success', 'Data berhasil di edit!');
+    }
+
+    public function generatepdfwalikelas()
+    {
+
+        $kelass = WaliKelas::where('id', Auth()->user()->walikelas_id)->first();
+
+        $siswas = Siswa::where('kelas_id', $kelass->kelas_id)->latest()->get();
+
+        $pdf = PDF::loadview('wali-kelas.export-pdf', ['siswas' => $siswas]);
+        $pdf->setPaper('a4', 'portrait');
+        return $pdf->stream('Data-Siswa-pdf');
     }
 }

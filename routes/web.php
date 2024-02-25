@@ -1,23 +1,23 @@
 <?php
 
-use App\Http\Middleware\CekLevel;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Login\LoginController;
-use App\Http\Controllers\Landing\LandingController;
-use App\Http\Controllers\Admin\AdminKelasController;
-use App\Http\Controllers\Admin\AdminSiswaController;
 use App\Http\Controllers\Admin\AdminGuruBkController;
 use App\Http\Controllers\Admin\AdminJurusanController;
-use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Admin\AdminWaliKelasController;
-use App\Http\Controllers\GuruBk\GuruBkLaporanController;
+use App\Http\Controllers\Admin\AdminKelasController;
+use App\Http\Controllers\Admin\AdminSiswaController;
 use App\Http\Controllers\Admin\AdminUserRegistrasiController;
-use App\Http\Controllers\Siswa\SiswaBimbinganOnlineController;
-use App\Http\Controllers\WaliKelas\WaliKelasLaporanController;
-use App\Http\Controllers\GuruBk\GuruBkSiswaBimbinganController;
+use App\Http\Controllers\Admin\AdminWaliKelasController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\GuruBk\GuruBkBimbinganOnlineController;
 use App\Http\Controllers\GuruBk\GuruBkJadwalBimbinganController;
+use App\Http\Controllers\GuruBk\GuruBkLaporanController;
+use App\Http\Controllers\GuruBk\GuruBkSiswaBimbinganController;
+use App\Http\Controllers\Landing\LandingController;
+use App\Http\Controllers\Login\LoginController;
+use App\Http\Controllers\Siswa\SiswaBimbinganOnlineController;
 use App\Http\Controllers\Siswa\SiswaMengajukanBimbinganController;
+use App\Http\Controllers\WaliKelas\WaliKelasLaporanController;
+use App\Http\Middleware\CekLevel;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('/setting-password', [DashboardController::class, 'settingpassword']);
     Route::post('/setting-gambar', [DashboardController::class, 'settinggambar']);
     Route::post('/hapus-gambar', [DashboardController::class, 'hapusgambar']);
+
+    Route::get('/generate-pdf/siswa', [DashboardController::class, 'generatepdfwalikelas']);
 
     // Admin
     Route::group(['middleware' => [CekLevel::class . ':Admin']], function () {

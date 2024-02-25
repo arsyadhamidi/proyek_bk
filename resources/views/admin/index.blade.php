@@ -1,62 +1,54 @@
 <div class="row">
-    <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-info">
-            <div class="inner">
-                <h3>150</h3>
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-primary"><i class="fas fa-book"></i></span>
 
-                <p>New Orders</p>
+            <div class="info-box-content">
+                <span class="info-box-text">Jurusan</span>
+                <span class="info-box-number">{{ $jurusans ?? '0' }}</span>
             </div>
-            <div class="icon">
-                <i class="ion ion-bag"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <!-- /.info-box-content -->
         </div>
+        <!-- /.info-box -->
     </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-success">
-            <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-orange"><i class="fas fa-graduation-cap text-white"></i></span>
 
-                <p>Bounce Rate</p>
+            <div class="info-box-content">
+                <span class="info-box-text">Siswa</span>
+                <span class="info-box-number">{{ $siswas ?? '0' }}</span>
             </div>
-            <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <!-- /.info-box-content -->
         </div>
+        <!-- /.info-box -->
     </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-warning">
-            <div class="inner">
-                <h3>44</h3>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-maroon"><i class="fas fa-user"></i></span>
 
-                <p>User Registrations</p>
+            <div class="info-box-content">
+                <span class="info-box-text">Wali Kelas</span>
+                <span class="info-box-number">{{ $walikelass ?? '0' }}</span>
             </div>
-            <div class="icon">
-                <i class="ion ion-person-add"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <!-- /.info-box-content -->
         </div>
+        <!-- /.info-box -->
     </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-danger">
-            <div class="inner">
-                <h3>65</h3>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-success"><i class="fas fa-user-tie"></i></span>
 
-                <p>Unique Visitors</p>
+            <div class="info-box-content">
+                <span class="info-box-text">Guru BK</span>
+                <span class="info-box-number">{{ $gurubks ?? '0' }}</span>
             </div>
-            <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <!-- /.info-box-content -->
         </div>
+        <!-- /.info-box -->
     </div>
-    <!-- ./col -->
+    <!-- /.col -->
 </div>

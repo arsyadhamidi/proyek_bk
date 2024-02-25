@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Bimbingan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PDF;
 
 class GuruBkSiswaBimbinganController extends Controller
 {
@@ -46,5 +47,14 @@ class GuruBkSiswaBimbinganController extends Controller
         Bimbingan::where('id', $id)->update($validated);
 
         return redirect('bimbingan-siswa')->with('success', 'Anda berhasil melakukan balasan bimbingan');
+    }
+
+    public function show($id)
+    {
+        $bimbingans = Bimbingan::where('gurubk_id', $id)->latest()->get();
+
+        $pdf = PDF::loadview('guru-bk.bimbingan.export-pdf', ['bimbingans' => $bimbingans]);
+        $pdf->setPaper('a4', 'portrait');
+        return $pdf->stream('laporan-bimbingan-pdf');
     }
 }
