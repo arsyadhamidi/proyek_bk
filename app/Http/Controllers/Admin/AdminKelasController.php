@@ -27,11 +27,11 @@ class AdminKelasController extends Controller
     {
         $validated = $request->validate([
             'jurusan_id' => 'required',
-            'nama_kelas' => 'required|min:4',
+            'nama_kelas' => 'required|min:2',
         ], [
             'jurusan_id.required' => 'Jurusan tidak boleh kosong',
             'nama_kelas.required' => 'Nama kelas tidak boleh kosong',
-            'nama_kelas.min' => 'Nama kelas minimal 4 karakter',
+            'nama_kelas.min' => 'Nama kelas minimal 2 karakter',
         ]);
 
         Kelas::create($validated);

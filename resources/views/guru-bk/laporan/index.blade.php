@@ -21,56 +21,44 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Wali Kelas</th>
-                                <th>Guru BK</th>
+                                <th>NISN</th>
+                                <th>Nama</th>
+                                <th>Jurusan</th>
                                 <th>Siswa</th>
                                 <th>Status</th>
-                                <th>Keterangan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($laporans as $data)
+                            @foreach ($siswas as $data)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $data->walikelas->nama_walikelas ?? '-' }}</td>
-                                    <td>{{ $data->gurubk->nama_gurubk ?? '-' }}</td>
-                                    <td>{{ $data->siswa->nama_siswa ?? '-' }}</td>
+                                    <td>{{ $data->nisn_siswa ?? '-' }}</td>
+                                    <td>{{ $data->nama_siswa ?? '-' }}</td>
+                                    <td>{{ $data->jurusan->nama_jurusan ?? '-' }}</td>
+                                    <td>{{ $data->kelas->nama_kelas ?? '-' }}</td>
                                     <td>
-                                        @if ($data->status_laporan == 'Selesai')
-                                            <span class="badge badge-success">{{ $data->status_laporan ?? '-' }}</span>
-                                        @elseif ($data->status_laporan == 'Pengajuan')
-                                            <span class="badge badge-warning">{{ $data->status_laporan ?? '-' }}</span>
-                                        @else
-                                            <span
-                                                class="badge badge-secondary">{{ $data->status_laporan ?? 'Tidak Tersedia' }}</span>
-                                        @endif
+                                        @php
+                                            $laporans = App\Models\Laporan::where('siswa_id', $data->id)
+                                                ->where('status_laporan', 'Selesai')
+                                                ->count();
+                                        @endphp
+
+                                        {{ $laporans ?? '0' }} Status
                                     </td>
-                                    <td>{{ $data->laporan_siswa ?? '-' }}</td>
                                     <td>
-                                        @if ($data->status_laporan == 'Selesai')
-                                            <button type="submit" class="btn bg-gradient-success" disabled>
-                                                <i class="fas fa-check"></i>
-                                                Selesai
-                                            </button>
-                                        @elseif ($data->status_laporan == 'Pengajuan')
-                                            <form action="{{ route('gurubk-laporan.update', $data->id) }}" method="POST"
-                                                onclick="return confirm('Apakah laporan ini sudah selesai ?');">
-                                                @method('PUT')
-                                                @csrf
-                                                <button type="submit" class="btn bg-gradient-primary">
-                                                    <i class="fas fa-check"></i>
-                                                    Selesai
-                                                </button>
-                                            </form>
+                                        @if ($laporans >= 3)
                                             <a href="https://api.whatsapp.com/send?phone={{ $data->siswa->telp_ortu_siswa ?? '-' }}&text=Halo%20orang%20tua,%20saya%20ingin%20berbicara%20tentang%20anak%20anda."
                                                 class="btn bg-gradient-success" target="_blank">
                                                 <i class="fab fa-whatsapp"></i>
                                                 Panggilan Orang Tua
                                             </a>
                                         @else
-                                            <span
-                                                class="badge badge-secondary">{{ $data->status_laporan ?? 'Tidak Tersedia' }}</span>
+                                            <a href="{{ route('gurubk-laporan.show', $data->id) }}"
+                                                class="btn bg-gradient-primary">
+                                                <i class="fas fa-eye"></i>
+                                                Detail
+                                            </a>
                                         @endif
                                     </td>
                                 </tr>

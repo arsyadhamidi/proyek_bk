@@ -1,15 +1,13 @@
 @extends('admin.layout.master')
 
-@section('menuBimbinganSiswa', 'active')
+@section('menuGuruBkBimbinganOnline', 'active')
 
 @section('content')
     <div class="row">
         <div class="col-lg">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('bimbingan-siswa.create') }}" class="btn bg-gradient-primary">
-                        Rekap Data Bimbingan Siswa
-                    </a>
+                    Data Bimbingan Online
                 </div>
                 <div class="card-body">
                     @if (session('error'))
@@ -27,10 +25,9 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Guru BK</th>
-                                <th>Jadwal</th>
+                                <th>Siswa</th>
                                 <th>Layanan</th>
-                                <th>Keterangan</th>
+                                <th>Bimbingan</th>
                                 <th>Balasan</th>
                                 <th>Aksi</th>
                             </tr>
@@ -39,24 +36,22 @@
                             @foreach ($bimbingans as $data)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $data->gurubk->nama_gurubk ?? '-' }}</td>
+                                    <td>{{ $data->siswa->nama_siswa ?? '-' }}</td>
+                                    <td>{{ $data->layanan_online ?? '-' }}</td>
+                                    <td>{{ $data->keterangan_online ?? '-' }}</td>
+                                    <td>{{ $data->balasan_online ?? '-' }}</td>
                                     <td>
-                                        {{ $data->jadwal->hari_jadwal ?? '-' }} /
-                                        {{ $data->jadwal->jam_mulai_bimbingan ?? '-' }} -
-                                        {{ $data->jadwal->jam_selesai_bimbingan ?? '-' }}
-                                    </td>
-                                    <td>{{ $data->status_bimbingan ?? '-' }}</td>
-                                    <td>
-                                        {{ $data->keterangan_bimbingan ?? '-' }}
-                                    </td>
-                                    <td>
-                                        {{ $data->balasan_bimbingan ?? '-' }}
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('bimbingan-siswa.edit', $data->id) }}"
-                                            class="btn bg-gradient-success">
-                                            Balasan
-                                        </a>
+                                        @if ($data->balasan_online != null)
+                                            <button type="button" class="btn bg-gradient-success" type="submit" disabled>
+                                                Selesai
+                                            </button>
+                                        @else
+                                            <a href="{{ route('layanan-online.edit', $data->id) }}"
+                                                class="btn bg-gradient-primary">
+                                                <i class="fas fa-edit"></i>
+                                                Balasan
+                                            </a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

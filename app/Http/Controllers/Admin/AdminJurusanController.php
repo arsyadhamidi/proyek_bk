@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Kelas;
-use App\Models\Jurusan;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Jurusan;
+use App\Models\Kelas;
+use Illuminate\Http\Request;
 
 class AdminJurusanController extends Controller
 {
@@ -24,13 +24,13 @@ class AdminJurusanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode_jurusan' => 'required|min:4',
-            'nama_jurusan' => 'required|min:4',
+            'kode_jurusan' => 'required|min:2',
+            'nama_jurusan' => 'required|min:2',
         ], [
             'kode_jurusan.required' => 'Kode jurusan tidak boleh kosong',
-            'kode_jurusan.min' => 'Kode jurusan minimal 4 karakter',
+            'kode_jurusan.min' => 'Kode jurusan minimal 2 karakter',
             'nama_jurusan.required' => 'Nama jurusan tidak boleh kosong',
-            'nama_jurusan.min' => 'Nama jurusan minimal 4 karakter',
+            'nama_jurusan.min' => 'Nama jurusan minimal 2 karakter',
         ]);
 
         Jurusan::create($validated);
@@ -48,13 +48,13 @@ class AdminJurusanController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'kode_jurusan' => 'required|min:4',
-            'nama_jurusan' => 'required|min:4',
+            'kode_jurusan' => 'required|min:2',
+            'nama_jurusan' => 'required|min:2',
         ], [
             'kode_jurusan.required' => 'Kode jurusan tidak boleh kosong',
-            'kode_jurusan.min' => 'Kode jurusan minimal 4 karakter',
+            'kode_jurusan.min' => 'Kode jurusan minimal 2 karakter',
             'nama_jurusan.required' => 'Nama jurusan tidak boleh kosong',
-            'nama_jurusan.min' => 'Nama jurusan minimal 4 karakter',
+            'nama_jurusan.min' => 'Nama jurusan minimal 2 karakter',
         ]);
 
         Jurusan::find($id)->update($validated);

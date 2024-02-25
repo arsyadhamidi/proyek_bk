@@ -53,20 +53,20 @@
                     @endif
 
                     <div class="wrap-input100 validate-input">
-                        <input name="username" class="input100 @error('username') is-invalid @enderror" type="text"
-                            placeholder="Username">
+                        <input name="email" class="input100 @error('email') is-invalid @enderror" type="email"
+                            placeholder="Email Address" data-validate = "Email tidak boleh kosong">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </span>
-                        @error('username')
+                        @error('email')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                         @enderror
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                    <div class="wrap-input100 validate-input" data-validate = "Password is tidak boleh kosong">
                         <input class="input100 @error('password') is-invalid @enderror" type="password" name="password"
                             placeholder="Password">
                         <span class="focus-input100"></span>

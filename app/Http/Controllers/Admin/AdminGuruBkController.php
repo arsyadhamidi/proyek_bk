@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\GuruBk;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminGuruBkController extends Controller
 {
@@ -24,23 +25,28 @@ class AdminGuruBkController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nip_gurubk' => 'required|min:4|unique:guru_bks,nip_gurubk',
-            'nama_gurubk' => 'required|min:4',
+            'nip_gurubk' => 'required|min:2|unique:guru_bks,nip_gurubk',
+            'nama_gurubk' => 'required|min:2',
             'jk_gurubk' => 'required',
             'telp_gurubk' => 'required',
             'email_gurubk' => 'required|email:dns',
         ], [
             'nip_gurubk.required' => 'NIP guru bk tidak boleh kosong!',
-            'nip_gurubk.min' => 'NIP guru bk minimal 4 karakter!',
+            'nip_gurubk.min' => 'NIP guru bk minimal 2 karakter!',
             'nip_gurubk.unique' => 'NIP guru bk sudah tersedia!',
             'nama_gurubk.required' => 'Nama guru bk tidak boleh kosong!',
-            'nama_gurubk.min' => 'Nama guru bk minimal 4 karakter!',
+            'nama_gurubk.min' => 'Nama guru bk minimal 2 karakter!',
             'jk_gurubk.required' => 'Jenis Kelamin guru bk tidak boleh kosong!',
             'telp_gurubk.required' => 'Telepon guru bk tidak boleh kosong!',
             'email_gurubk.required' => 'Email guru bk tidak boleh kosong!',
         ]);
 
         $validated['telp_gurubk'] = '+62' . $request->telp_gurubk;
+        if ($request->file('foto_gurubk')) {
+            $validated['foto_gurubk'] = $request->file('foto_gurubk')->store('foto_gurubk');
+        } else {
+            $validated['foto_gurubk'] = null;
+        }
 
         GuruBk::create($validated);
 
@@ -48,7 +54,7 @@ class AdminGuruBkController extends Controller
 
         User::create([
             'name' => $validated['nama_gurubk'],
-            'username' => $validated['nip_gurubk'],
+            'email' => $validated['email_gurubk'],
             'password' => bcrypt('12345678'),
             'level' => 'Guru BK',
             'telp' => $validated['telp_gurubk'],
@@ -85,12 +91,24 @@ class AdminGuruBkController extends Controller
         ]);
 
         $validated['telp_gurubk'] = '+62' . $request->telp_gurubk;
+        $gurubks = GuruBk::where('id', $id)->first();
+
+        if ($request->file('foto_gurubk')) {
+
+            if ($gurubks->foto_gurubk) {
+                Storage::delete($gurubks->foto_gurubk);
+            }
+
+            $validated['foto_gurubk'] = $request->file('foto_gurubk')->store('foto_gurubk');
+        } else {
+            $validated['foto_gurubk'] = $gurubks->foto_gurubk;
+        }
 
         GuruBk::where('id', $id)->update($validated);
 
         User::where('gurubk_id', $id)->update([
             'name' => $validated['nama_gurubk'],
-            'username' => $validated['nip_gurubk'],
+            'email' => $validated['email_gurubk'],
             'password' => bcrypt('12345678'),
             'level' => 'Guru BK',
             'telp' => $validated['telp_gurubk'],
@@ -101,6 +119,10 @@ class AdminGuruBkController extends Controller
 
     public function destroy($id)
     {
+        $gurubks = GuruBk::where('id', $id)->first();
+        if ($gurubks->foto_gurubk) {
+            Storage::delete($gurubks->foto_gurubk);
+        }
         User::where('gurubk_id', $id)->delete();
 
         GuruBk::where('id', $id)->delete();

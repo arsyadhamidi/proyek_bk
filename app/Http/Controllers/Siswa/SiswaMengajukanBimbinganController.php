@@ -30,7 +30,8 @@ class SiswaMengajukanBimbinganController extends Controller
             'jadwal_id' => 'required',
             'gurubk_id' => 'required',
             'keterangan_bimbingan' => 'required',
-            'status_layanan' => 'required',
+            'status_bimbingan' => 'required',
+            'tgl_bimbingan' => 'required',
         ]);
 
         $validated['siswa_id'] = Auth()->user()->siswa_id;
@@ -54,7 +55,8 @@ class SiswaMengajukanBimbinganController extends Controller
             'jadwal_id' => 'required',
             'gurubk_id' => 'required',
             'keterangan_bimbingan' => 'required',
-            'status_layanan' => 'required',
+            'status_bimbingan' => 'required',
+            'tgl_bimbingan' => 'required',
         ]);
 
         $validated['siswa_id'] = Auth()->user()->siswa_id;

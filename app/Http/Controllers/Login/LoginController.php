@@ -16,10 +16,10 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'username' => 'required',
+            'email' => 'required',
             'password' => 'required|min:4',
         ], [
-            'username.required' => 'username tidak boleh kosong!.',
+            'email.required' => 'email tidak boleh kosong!.',
             'password.required' => 'Password tidak boleh kosong!.',
             'password.min' => 'Password minimal 8 karakter.',
         ]);
@@ -30,7 +30,7 @@ class LoginController extends Controller
 
             return redirect()->intended('/dashboard')->with('success', 'Login Berhasil!');
         } else {
-            return back()->with('error', 'Username atau password anda salah!');
+            return back()->with('error', 'Email Address atau password anda salah!');
         }
     }
 

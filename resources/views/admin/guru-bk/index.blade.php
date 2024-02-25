@@ -27,6 +27,7 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
+                                <th>Gambar</th>
                                 <th>NIP</th>
                                 <th>Nama Lengkap</th>
                                 <th>Jenis Kelamin</th>
@@ -39,6 +40,15 @@
                             @foreach ($gurubks as $data)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        @if ($data->foto_gurubk)
+                                            <img src="{{ asset('storage/' . $data->foto_gurubk) }}"
+                                                class="img-fluid rounded" alt="gambar" width="150">
+                                        @else
+                                            <img src="{{ asset('images/foto-profile.png') }}" class="img-fluid rounded"
+                                                alt="gambar" width="150">
+                                        @endif
+                                    </td>
                                     <td>{{ $data->nip_gurubk ?? '-' }}</td>
                                     <td>{{ $data->nama_gurubk ?? '-' }}</td>
                                     <td>{{ $data->jk_gurubk ?? '-' }}</td>

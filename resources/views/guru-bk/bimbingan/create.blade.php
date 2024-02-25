@@ -7,22 +7,16 @@
         <div class="col-lg">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('bimbingan-siswa.create') }}" class="btn bg-gradient-primary">
-                        Rekap Data Bimbingan Siswa
+                    <a href="{{ route('bimbingan-siswa.index') }}" class="btn bg-gradient-secondary">
+                        <i class="fas fa-arrow-alt-circle-left"></i>
+                        Kembali
                     </a>
+                    {{--  <a href="#" class="btn bg-gradient-danger">
+                        <i class="fas fa-print"></i>
+                        Download Rekap Data Siswa Bimbingan
+                    </a>  --}}
                 </div>
                 <div class="card-body">
-                    @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ session('error') }}
-                        </div>
-                    @elseif (session('success'))
-                        <div class="alert alert-success  alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ session('success') }}
-                        </div>
-                    @endif
                     <table class="table table-bordered table-striped" id="myTable">
                         <thead>
                             <tr>
@@ -32,7 +26,7 @@
                                 <th>Layanan</th>
                                 <th>Keterangan</th>
                                 <th>Balasan</th>
-                                <th>Aksi</th>
+                                <th>Tanggal</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,10 +47,7 @@
                                         {{ $data->balasan_bimbingan ?? '-' }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('bimbingan-siswa.edit', $data->id) }}"
-                                            class="btn bg-gradient-success">
-                                            Balasan
-                                        </a>
+                                        {{ $data->tgl_bimbingan ?? '-' }}
                                     </td>
                                 </tr>
                             @endforeach

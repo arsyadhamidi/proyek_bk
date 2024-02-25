@@ -80,11 +80,49 @@
                     </div>
                 </li>
 
+                @if (Auth()->user()->level == 'Guru BK')
+                    @php
+                        $laporans = \App\Models\Laporan::where('status_laporan', 'Pengajuan')->latest()->paginate(5);
+                        $laporanCount = \App\Models\Laporan::where('status_laporan', 'Pengajuan')->count();
+                    @endphp
+
+                    <!-- Notifikasi Dropdown Menu -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="far fa-bell"></i>
+                            <span class="badge badge-warning navbar-badge">{{ $laporanCount ?? '0' }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            @foreach ($laporans as $data)
+                                <a href="{{ route('gurubk-laporan.show', $data->siswa_id) }}" class="dropdown-item">
+                                    <!-- Message Start -->
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <h3 class="dropdown-item-title">
+                                                {{ $data->siswa->nama_siswa ?? '-' }}
+                                            </h3>
+                                            <p class="text-sm">{{ Str::limit($data->laporan_siswa ?? '-', 70) }}</p>
+                                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>
+                                                {{ $data->created_at->diffForHumans() ?? '-' }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- Message End -->
+                                </a>
+                            @endforeach
+                            <a href="{{ route('gurubk-laporan.index') }}" class="dropdown-item dropdown-footer">Lihat
+                                Semuanya</a>
+                        </div>
+                    </li>
+                @endif
+
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
                     </a>
                 </li>
+
+
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         @if (Auth()->user()->foto_profile)
@@ -207,7 +245,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('bimbingan-siswa.index') }}" class="nav-link @yield('menuBimbinganSiswa')">
                                     <i class="nav-icon fas fa-book"></i>
-                                    <p>Bimbingan Siswa</p>
+                                    <p>Jadwal Siswa</p>
                                 </a>
                             </li>
                             {{--  Data Laporan  --}}
@@ -217,20 +255,34 @@
                                     <p>Laporan WaliKelas</p>
                                 </a>
                             </li>
+                            {{--  Bimbingan Online  --}}
+                            <li class="nav-item">
+                                <a href="{{ route('layanan-online.index') }}" class="nav-link @yield('menuGuruBkBimbinganOnline')">
+                                    <i class="nav-icon fas fa-file"></i>
+                                    <p>Bimbingan Online</p>
+                                </a>
+                            </li>
                         @elseif(Auth()->user()->level == 'Siswa')
                             {{--  Melakukan Bimbingan  --}}
                             <li class="nav-item">
                                 <a href="{{ route('mengajukan-bimbingan.index') }}"
                                     class="nav-link @yield('menuMelakukanBimbingan')">
+                                    <i class="nav-icon fas fa-calendar-alt"></i>
+                                    <p>Jadwal Bimbingan</p>
+                                </a>
+                            </li>
+
+                            {{--  Bimbingan Online  --}}
+                            <li class="nav-item">
+                                <a href="{{ route('bimbingan-online.index') }}" class="nav-link @yield('menuSiswaBimbinganOnline')">
                                     <i class="nav-icon fas fa-book"></i>
-                                    <p>Lakukan Bimbingan</p>
+                                    <p>Bimbingan Online</p>
                                 </a>
                             </li>
                         @elseif (Auth()->user()->level == 'Wali Kelas')
                             {{--  Laporan Wali Kelas  --}}
                             <li class="nav-item">
-                                <a href="{{ route('laporan-walikelas.index') }}"
-                                    class="nav-link @yield('menuLaporanWaliKelas')">
+                                <a href="{{ route('laporan-walikelas.index') }}" class="nav-link @yield('menuLaporanWaliKelas')">
                                     <i class="nav-icon fas fa-book"></i>
                                     <p>Laporan WaliKelas</p>
                                 </a>

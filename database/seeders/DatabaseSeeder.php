@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Jurusan;
-use App\Models\Kelas;
 use App\Models\User;
+use App\Models\Kelas;
+use App\Models\Jurusan;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         User::create([
             'name' => 'Admin',
-            'username' => 'Admin',
+            'email' => 'admin@gmail.com',
             'password' => bcrypt('12341234'),
             'level' => 'Admin',
             'telp' => '+6282268556712',

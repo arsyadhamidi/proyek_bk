@@ -5,7 +5,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg">
-            <form action="{{ route('data-walikelas.store') }}" method="POST">
+            <form action="{{ route('data-walikelas.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
                     <div class="card-header">
@@ -103,6 +103,27 @@
                                             @enderror
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label>Email Wali Kelas</label>
+                                    <input type="email" name="email_walikelas"
+                                        class="form-control @error('email_walikelas') is-invalid @enderror"
+                                        placeholder="Masukan email guru bk" value="{{ old('email_walikelas') }}">
+                                    @error('email_walikelas')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg">
+                                <div class="mb-3">
+                                    <label>Foto Wali Kelas</label>
+                                    <input type="file" name="foto_walikelas" class="form-control">
                                 </div>
                             </div>
                         </div>

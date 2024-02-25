@@ -53,16 +53,28 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label>Status Bimbingan</label>
-                                    <select name="status_layanan"
-                                        class="custom-select @error('status_layanan') is-invalid @enderror">
-                                        <option value="" selected>Pilih Status Layanan</option>
+                                    <label>Layanan Bimbingan</label>
+                                    <select name="status_bimbingan"
+                                        class="custom-select @error('status_bimbingan') is-invalid @enderror">
+                                        <option value="" selected>Pilih Layanan Bimbingan</option>
                                         <option value="Bimbingan Pribadi">Bimbingan Pribadi</option>
                                         <option value="Bimbingan Sosial">Bimbingan Sosial</option>
                                         <option value="Bimbingan Akademik">Bimbingan Akademik</option>
                                         <option value="Bimbingan Karir">Bimbingan Karir</option>
                                     </select>
-                                    @error('status_layanan')
+                                    @error('status_bimbingan')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg">
+                                <div class="mb-3">
+                                    <label>Tanggal Bimbingan</label>
+                                    <input type="date" name="tgl_bimbingan"
+                                        class="form-control @error('tgl_bimbingan') is-invalid @enderror">
+                                    @error('tgl_bimbingan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

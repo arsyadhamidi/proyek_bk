@@ -8,6 +8,7 @@ use App\Models\Kelas;
 use App\Models\User;
 use App\Models\WaliKelas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminWaliKelasController extends Controller
 {
@@ -34,6 +35,7 @@ class AdminWaliKelasController extends Controller
             'telp_walikelas' => 'required|min:10',
             'jurusan_id' => 'required',
             'kelas_id' => 'required',
+            'email_walikelas' => 'required',
         ], [
             'nip_walikelas.required' => 'Nip Wali Kelas tidak boleh kosong',
             'nip_walikelas.unique' => 'Nip Wali Kelas tidak boleh kosong',
@@ -48,13 +50,19 @@ class AdminWaliKelasController extends Controller
 
         $validated['telp_walikelas'] = '+62' . $request->telp_walikelas;
 
+        if ($request->file('foto_walikelas')) {
+            $validated['foto_walikelas'] = $request->file('foto_walikelas')->store('foto_walikelas');
+        } else {
+            $validated['foto_walikelas'] = null;
+        }
+
         WaliKelas::create($validated);
 
         $walikelass = Walikelas::latest()->first();
 
         User::create([
             'name' => $validated['nama_walikelas'],
-            'username' => $validated['nip_walikelas'],
+            'email' => $validated['email_walikelas'],
             'password' => bcrypt('12345678'),
             'telp' => $validated['telp_walikelas'],
             'level' => 'Wali Kelas',
@@ -88,6 +96,7 @@ class AdminWaliKelasController extends Controller
             'telp_walikelas' => 'required|min:10',
             'jurusan_id' => 'required',
             'kelas_id' => 'required',
+            'email_walikelas' => 'required',
         ], [
             'nip_walikelas.required' => 'Nip Wali Kelas tidak boleh kosong',
             'nip_walikelas.unique' => 'Nip Wali Kelas sudah tersedia',
@@ -102,13 +111,26 @@ class AdminWaliKelasController extends Controller
 
         $validated['telp_walikelas'] = '+62' . $request->telp_walikelas;
 
+        $walikelass = WaliKelas::where('id', $id)->first();
+
+        if ($request->file('foto_walikelas')) {
+
+            if ($walikelass->foto_walikelas) {
+                Storage::delete($walikelass->foto_walikelas);
+            }
+
+            $validated['foto_walikelas'] = $request->file('foto_walikelas')->store('foto_walikelas');
+        } else {
+            $validated['foto_walikelas'] = $walikelass->foto_walikelas;
+        }
+
         WaliKelas::where('id', $id)->update($validated);
 
         $walikelass = Walikelas::latest()->first();
 
         User::where('walikelas_id', $id)->update([
             'name' => $validated['nama_walikelas'],
-            'username' => $validated['nip_walikelas'],
+            'email' => $validated['email_walikelas'],
             'password' => bcrypt('12345678'),
             'telp' => $validated['telp_walikelas'],
             'level' => 'Wali Kelas',

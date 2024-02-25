@@ -110,6 +110,28 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label>Email Wali Kelas</label>
+                                    <input type="email" name="email_walikelas"
+                                        class="form-control @error('email_walikelas') is-invalid @enderror"
+                                        placeholder="Masukan email guru bk"
+                                        value="{{ old('email_walikelas', $walikelass->email_walikelas) }}">
+                                    @error('email_walikelas')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg">
+                                <div class="mb-3">
+                                    <label>Foto Wali Kelas</label>
+                                    <input type="file" name="foto_walikelas" class="form-control">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn bg-gradient-success">

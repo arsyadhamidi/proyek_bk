@@ -6,10 +6,26 @@
         <div class="col-lg">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('mengajukan-bimbingan.create') }}" class="btn bg-gradient-primary">
-                        <i class="fas fa-plus"></i>
-                        Mengajukan Bimbingan
-                    </a>
+
+                    @php
+                        $checkBimbingan = \App\Models\Bimbingan::where('siswa_id', Auth()->user()->siswa_id)
+                            ->where('balasan_bimbingan', null)
+                            ->latest()
+                            ->first();
+
+                    @endphp
+
+                    @if ($checkBimbingan)
+                        <button type="submit" class="btn bg-gradient-primary" disabled>
+                            <i class="fas fa-plus"></i>
+                            Mengajukan Bimbingan
+                        </button>
+                    @else
+                        <a href="{{ route('mengajukan-bimbingan.create') }}" class="btn bg-gradient-primary">
+                            <i class="fas fa-plus"></i>
+                            Mengajukan Bimbingan
+                        </a>
+                    @endif
                 </div>
                 <div class="card-body">
                     @if (session('error'))
@@ -45,7 +61,7 @@
                                         {{ $data->jadwal->jam_mulai_bimbingan ?? '-' }} -
                                         {{ $data->jadwal->jam_selesai_bimbingan ?? '-' }}
                                     </td>
-                                    <td>{{ $data->status_layanan ?? '-' }}</td>
+                                    <td>{{ $data->status_bimbingan ?? '-' }}</td>
                                     <td>
                                         {{ $data->keterangan_bimbingan ?? '-' }}
                                     </td>

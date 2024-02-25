@@ -50,7 +50,7 @@
                                 <div class="mb-3">
                                     <label>Status Layanan</label>
                                     <input type="text" class="form-control"
-                                        value="{{ $bimbingans->status_layanan ?? '-' }}" readonly>
+                                        value="{{ $bimbingans->status_bimbingan ?? '-' }}" readonly>
                                 </div>
                             </div>
                         </div>

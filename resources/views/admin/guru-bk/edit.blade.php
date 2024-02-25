@@ -4,7 +4,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg">
-            <form action="{{ route('data-gurubk.update', $gurubks->id) }}" method="POST">
+            <form action="{{ route('data-gurubk.update', $gurubks->id) }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="card">
@@ -103,6 +103,12 @@
                                             {{ $message }}
                                         </div>
                                     @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg">
+                                <div class="mb-3">
+                                    <label>Foto Guru BK</label>
+                                    <input type="file" name="foto_gurubk" class="form-control">
                                 </div>
                             </div>
                         </div>

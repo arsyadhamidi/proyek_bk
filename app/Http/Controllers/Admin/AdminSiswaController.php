@@ -86,7 +86,7 @@ class AdminSiswaController extends Controller
 
         User::create([
             'name' => $validated['nama_siswa'],
-            'username' => $validated['nisn_siswa'],
+            'email' => $validated['email_siswa'],
             'password' => bcrypt('12345678'),
             'level' => 'Siswa',
             'telp' => $validated['telp_siswa'],
@@ -149,7 +149,7 @@ class AdminSiswaController extends Controller
 
         User::where('siswa_id', $id)->update([
             'name' => $validated['nama_siswa'],
-            'username' => $validated['nisn_siswa'],
+            'email' => $validated['email_siswa'],
             'password' => bcrypt('12345678'),
             'level' => 'Siswa',
             'telp' => $validated['telp_siswa'],

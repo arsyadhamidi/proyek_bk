@@ -15,7 +15,7 @@
                             <th>No</th>
                             <th>Gambar</th>
                             <th>Nama Lengkap</th>
-                            <th>Username</th>
+                            <th>Email Address</th>
                             <th>Status</th>
                         </thead>
                         <tbody>
@@ -32,7 +32,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $data->name ?? '-' }}</td>
-                                    <td>{{ $data->username ?? '-' }}</td>
+                                    <td>{{ $data->email ?? '-' }}</td>
                                     <td>{{ $data->level ?? '-' }}</td>
                                 </tr>
                             @endforeach

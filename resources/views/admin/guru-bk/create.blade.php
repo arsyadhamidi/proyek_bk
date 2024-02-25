@@ -4,7 +4,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg">
-            <form action="{{ route('data-gurubk.store') }}" method="POST">
+            <form action="{{ route('data-gurubk.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
                     <div class="card-header">
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="col-lg">
-                                <label>Telp Wali Kelas</label>
+                                <label>Telp Guru BK</label>
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <div class="mb-3">
@@ -97,6 +97,12 @@
                                             {{ $message }}
                                         </div>
                                     @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg">
+                                <div class="mb-3">
+                                    <label>Foto Guru BK</label>
+                                    <input type="file" name="foto_gurubk" class="form-control">
                                 </div>
                             </div>
                         </div>
