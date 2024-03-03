@@ -11,20 +11,27 @@
 <body>
     <table style="width: 100%">
         <tr>
-            <td style="width: 20%">
-                <img src="{{ public_path('images/logo.png') }}" alt="gambar" width="100">
+            <td style="width: 10%">
+                <img src="{{ public_path('images/sumbar.png') }}" alt="gambar" width="100">
             </td>
             <td>
-                <h3 style="text-align: center">KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN</h3>
+                <h3 style="text-align: center">PEMERINTAH PROVINSI SUMATERA BARAT</h3>
                 <h2 style="text-align: center; margin-top: -10px">
-                    SMKN 1 BATUSANGKAR
+                    DINAS PENDIDIKAN
                 </h2>
-                <p style="margin-top: -10px; text-align: center">
-                    <i>
-                        GJ9J+W27, Saruaso, Kec. Tj. Emas, Kabupaten Tanah
-                        Datar, Sumatera Barat
-                        27281
-                    </i>
+                <h2 style="text-align: center; margin-top: -10px">
+                    SMK NEGERI 1 BATUSANGKAR
+                </h2>
+            </td>
+            <td style="width: 10%">
+                <img src="{{ public_path('images/smk.png') }}" alt="gambar" width="100">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <p style="margin-top: -10px; text-align: center; font-size: 10px">
+                    Alamat: Jln Pintu Rayo Saruaso E-Mail. smkn1_batusangkar@yahoo.c.o.id WEB.
+                    http://smkn1batusangkar.sch.id/Telp/ Fax: (0752) 71063
                 </p>
             </td>
         </tr>
