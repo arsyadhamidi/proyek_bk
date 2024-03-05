@@ -6,7 +6,7 @@
         <div class="col-lg">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('data-kelas.index') }}" class="btn bg-gradient-danger">
+                    <a href="{{ route('data-kelas.index') }}" class="btn bg-gradient-secondary">
                         <i class="fas fa-arrow-circle-left"></i>
                         Kembali
                     </a>
@@ -26,16 +26,17 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $data->nama_kelas ?? '-' }}</td>
-                                <td>
-                                    <a href="{{ route('data-kelas.edit', $data->id) }}" class="btn bg-gradient-primary">
-                                        <i class="fas fa-pen"></i>
-                                        Edit
-                                    </a>
+                                <td class="project-actions text-right">
                                     <form action="{{ route('data-kelas.destroy', $data->id) }}" method="POST"
                                         onsubmit="return confirm('Apakah anda yakin untuk menghapus data ini?')">
                                         @method('DELETE')
                                         @csrf
-                                        <button type="submit" class="btn bg-gradient-danger">
+                                        <a href="{{ route('data-kelas.edit', $data->id) }}"
+                                            class="btn btn-sm bg-gradient-primary">
+                                            <i class="fas fa-pen"></i>
+                                            Edit
+                                        </a>
+                                        <button type="submit" class="btn btn-sm bg-gradient-danger">
                                             <i class="fas fa-trash-alt"></i>
                                             Hapus
                                         </button>

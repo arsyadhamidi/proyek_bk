@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('DataWaliKelas', 'active')
+@section('menuDataWaliKelas', 'active')
 
 @section('content')
     <div class="row">
@@ -10,7 +10,7 @@
                 @csrf
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('data-walikelas.index') }}" class="btn bg-gradient-danger">
+                        <a href="{{ route('data-walikelas.index') }}" class="btn bg-gradient-secondary">
                             <i class="fas fa-arrow-circle-left"></i>
                             Kembali
                         </a>

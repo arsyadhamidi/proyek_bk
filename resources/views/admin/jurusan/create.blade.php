@@ -9,7 +9,7 @@
                 @csrf
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('data-jurusan.index') }}" class="btn bg-gradient-danger">
+                        <a href="{{ route('data-jurusan.index') }}" class="btn bg-gradient-secondary">
                             <i class="fas fa-arrow-circle-left"></i>
                             Kembali
                         </a>

@@ -36,17 +36,17 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $data->kode_jurusan ?? '-' }}</td>
                                     <td>{{ $data->nama_jurusan ?? '-' }}</td>
-                                    <td>
-                                        <a href="{{ route('data-jurusan.edit', $data->id) }}"
-                                            class="btn bg-gradient-primary">
-                                            <i class="fas fa-pen"></i>
-                                            Edit
-                                        </a>
+                                    <td class="project-actions text-right">
                                         <form action="{{ route('data-jurusan.destroy', $data->id) }}" method="POST"
                                             onsubmit="return confirm('Apakah anda yakin untuk menghapus data ini?')">
                                             @method('DELETE')
                                             @csrf
-                                            <button type="submit" class="btn bg-gradient-danger">
+                                            <a href="{{ route('data-jurusan.edit', $data->id) }}"
+                                                class="btn btn-sm bg-gradient-info">
+                                                <i class="fas fa-pen"></i>
+                                                Edit
+                                            </a>
+                                            <button type="submit" class="btn btn-sm bg-gradient-danger">
                                                 <i class="fas fa-trash-alt"></i>
                                                 Hapus
                                             </button>

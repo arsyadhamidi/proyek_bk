@@ -6,7 +6,7 @@
         <div class="col-lg">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('data-walikelas.index') }}" class="btn bg-gradient-danger">
+                    <a href="{{ route('data-walikelas.index') }}" class="btn bg-gradient-secondary">
                         <i class="fas fa-arrow-circle-left"></i>
                         Kembali
                     </a>
@@ -40,17 +40,17 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $data->kelas->nama_kelas ?? '-' }}</td>
                                     <td>{{ $data->nama_walikelas ?? '-' }}</td>
-                                    <td class="d-flex">
-                                        <a href="{{ route('data-walikelas.edit', $data->id) }}"
-                                            class="btn bg-gradient-success">
-                                            <i class="fas fa-pen"></i>
-                                            Edit
-                                        </a>
+                                    <td class="project-action text-right">
                                         <form action="{{ route('data-walikelas.destroy', $data->id) }}" method="POST"
                                             onclick="return confirm('Apakah anda yakin untuk menghapus data ini ?')">
                                             @method('DELETE')
                                             @csrf
-                                            <button type="submit" class="btn bg-gradient-danger mx-2">
+                                            <a href="{{ route('data-walikelas.edit', $data->id) }}"
+                                                class="btn btn-sm bg-gradient-success">
+                                                <i class="fas fa-pen"></i>
+                                                Edit
+                                            </a>
+                                            <button type="submit" class="btn btn-sm bg-gradient-danger">
                                                 <i class="fas fa-trash-alt"></i>
                                                 Hapus
                                             </button>
