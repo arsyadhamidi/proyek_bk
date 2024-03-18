@@ -6,8 +6,8 @@
         <div class="col-lg">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('data-walikelas.index') }}" class="btn bg-gradient-secondary">
-                        <i class="fas fa-arrow-circle-left"></i>
+                    <a href="{{ route('data-walikelas.index') }}" class="btn btn-default">
+                        <i class="fas fa-arrow-left"></i>
                         Kembali
                     </a>
                     <a href="{{ route('data-walikelas.create') }}" class="btn bg-gradient-primary">
@@ -16,17 +16,6 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ session('error') }}
-                        </div>
-                    @elseif (session('success'))
-                        <div class="alert alert-success  alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ session('success') }}
-                        </div>
-                    @endif
                     <table class="table table-bordered table-striped" id="myTable">
                         <thead>
                             <th width="5%">No.</th>
@@ -40,19 +29,17 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $data->kelas->nama_kelas ?? '-' }}</td>
                                     <td>{{ $data->nama_walikelas ?? '-' }}</td>
-                                    <td class="project-action text-right">
+                                    <td class="d-flex">
+                                        <a href="{{ route('data-walikelas.edit', $data->id) }}"
+                                            class="btn btn-sm bg-gradient-info">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
                                         <form action="{{ route('data-walikelas.destroy', $data->id) }}" method="POST"
-                                            onclick="return confirm('Apakah anda yakin untuk menghapus data ini ?')">
+                                            id="walasForm" class="mx-2">
                                             @method('DELETE')
                                             @csrf
-                                            <a href="{{ route('data-walikelas.edit', $data->id) }}"
-                                                class="btn btn-sm bg-gradient-success">
-                                                <i class="fas fa-pen"></i>
-                                                Edit
-                                            </a>
                                             <button type="submit" class="btn btn-sm bg-gradient-danger">
                                                 <i class="fas fa-trash-alt"></i>
-                                                Hapus
                                             </button>
                                         </form>
                                     </td>
@@ -65,3 +52,28 @@
         </div>
     </div>
 @endsection
+@push('custom-script')
+    <script>
+        // Mendengarkan acara pengiriman formulir
+        document.getElementById('walasForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah pengiriman formulir standar
+
+            // Tampilkan SweetAlert saat formulir dikirim
+            Swal.fire({
+                icon: 'info',
+                title: 'Hapus Data Wali Kelas!',
+                text: 'Apakah Anda yakin ingin untuk menghapus data ini?',
+                showCancelButton: true, // Menampilkan tombol batal
+                confirmButtonText: 'Ya',
+                confirmButtonColor: '#28a745', // Warna hijau untuk tombol konfirmasi
+                cancelButtonText: 'Tidak',
+                cancelButtonColor: '#dc3545' // Warna merah untuk tombol pembatalan
+            }).then((result) => {
+                // Lanjutkan ke tindakan berikutnya, misalnya mengirimkan formulir
+                if (result.isConfirmed) {
+                    document.getElementById('walasForm').submit(); // Melanjutkan pengiriman formulir
+                }
+            });
+        });
+    </script>
+@endpush

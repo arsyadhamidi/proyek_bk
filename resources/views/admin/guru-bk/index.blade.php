@@ -12,26 +12,12 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ session('error') }}
-                        </div>
-                    @elseif (session('success'))
-                        <div class="alert alert-success  alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ session('success') }}
-                        </div>
-                    @endif
                     <table class="table table-bordered table-striped" id="myTable">
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Gambar</th>
                                 <th>NIP</th>
                                 <th>Nama Lengkap</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Telepon</th>
                                 <th>Email</th>
                                 <th>Aksi</th>
                             </tr>
@@ -39,34 +25,21 @@
                         <tbody>
                             @foreach ($gurubks as $data)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>
-                                        @if ($data->foto_gurubk)
-                                            <img src="{{ asset('storage/' . $data->foto_gurubk) }}"
-                                                class="img-fluid rounded" alt="gambar" width="150">
-                                        @else
-                                            <img src="{{ asset('images/foto-profile.png') }}" class="img-fluid rounded"
-                                                alt="gambar" width="150">
-                                        @endif
-                                    </td>
+                                    <td width="3%">{{ $loop->iteration }}</td>
                                     <td>{{ $data->nip_gurubk ?? '-' }}</td>
                                     <td>{{ $data->nama_gurubk ?? '-' }}</td>
-                                    <td>{{ $data->jk_gurubk ?? '-' }}</td>
-                                    <td>{{ $data->telp_gurubk ?? '-' }}</td>
                                     <td>{{ $data->email_gurubk ?? '-' }}</td>
-                                    <td>
+                                    <td class="d-flex">
                                         <a href="{{ route('data-gurubk.edit', $data->id) }}"
-                                            class="btn bg-gradient-success">
-                                            <i class="fas fa-pen"></i>
-                                            Edit
+                                            class="btn btn-sm bg-gradient-info">
+                                            <i class="fas fa-edit"></i>
                                         </a>
                                         <form action="{{ route('data-gurubk.destroy', $data->id) }}" method="POST"
-                                            onclick="return confirm('Apakah anda yakin untuk menghapus data ini ?')">
+                                            class="mx-2" id="gurubkForm">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn bg-gradient-danger">
+                                            <button type="submit" class="btn btn-sm bg-gradient-danger">
                                                 <i class="fas fa-trash-alt"></i>
-                                                Hapus
                                             </button>
                                         </form>
                                     </td>
@@ -79,3 +52,28 @@
         </div>
     </div>
 @endsection
+@push('custom-script')
+    <script>
+        // Mendengarkan acara pengiriman formulir
+        document.getElementById('gurubkForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah pengiriman formulir standar
+
+            // Tampilkan SweetAlert saat formulir dikirim
+            Swal.fire({
+                icon: 'info',
+                title: 'Hapus Data Guru BK!',
+                text: 'Apakah Anda yakin ingin untuk menghapus data ini?',
+                showCancelButton: true, // Menampilkan tombol batal
+                confirmButtonText: 'Ya',
+                confirmButtonColor: '#28a745', // Warna hijau untuk tombol konfirmasi
+                cancelButtonText: 'Tidak',
+                cancelButtonColor: '#dc3545' // Warna merah untuk tombol pembatalan
+            }).then((result) => {
+                // Lanjutkan ke tindakan berikutnya, misalnya mengirimkan formulir
+                if (result.isConfirmed) {
+                    document.getElementById('gurubkForm').submit(); // Melanjutkan pengiriman formulir
+                }
+            });
+        });
+    </script>
+@endpush

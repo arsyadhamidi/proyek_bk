@@ -25,21 +25,23 @@ class AdminGuruBkController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nip_gurubk' => 'required|min:2|unique:guru_bks,nip_gurubk',
             'nama_gurubk' => 'required|min:2',
             'jk_gurubk' => 'required',
             'telp_gurubk' => 'required',
             'email_gurubk' => 'required|email:dns',
         ], [
-            'nip_gurubk.required' => 'NIP guru bk tidak boleh kosong!',
-            'nip_gurubk.min' => 'NIP guru bk minimal 2 karakter!',
-            'nip_gurubk.unique' => 'NIP guru bk sudah tersedia!',
             'nama_gurubk.required' => 'Nama guru bk tidak boleh kosong!',
             'nama_gurubk.min' => 'Nama guru bk minimal 2 karakter!',
             'jk_gurubk.required' => 'Jenis Kelamin guru bk tidak boleh kosong!',
             'telp_gurubk.required' => 'Telepon guru bk tidak boleh kosong!',
             'email_gurubk.required' => 'Email guru bk tidak boleh kosong!',
         ]);
+
+        if ($request->nip_gurubk) {
+            $validated['nip_gurubk'] = $request->nip_gurubk;
+        } else {
+            $validated['nip_gurubk'] = null;
+        }
 
         $validated['telp_gurubk'] = '+62' . $request->telp_gurubk;
         if ($request->file('foto_gurubk')) {
@@ -74,15 +76,11 @@ class AdminGuruBkController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'nip_gurubk' => 'required|min:4|unique:guru_bks,nip_gurubk',
             'nama_gurubk' => 'required|min:4',
             'jk_gurubk' => 'required',
             'telp_gurubk' => 'required',
             'email_gurubk' => 'required|email:dns',
         ], [
-            'nip_gurubk.required' => 'NIP guru bk tidak boleh kosong!',
-            'nip_gurubk.min' => 'NIP guru bk minimal 4 karakter!',
-            'nip_gurubk.unique' => 'NIP guru bk sudah tersedia!',
             'nama_gurubk.required' => 'Nama guru bk tidak boleh kosong!',
             'nama_gurubk.min' => 'Nama guru bk minimal 4 karakter!',
             'jk_gurubk.required' => 'Jenis Kelamin guru bk tidak boleh kosong!',
@@ -92,6 +90,12 @@ class AdminGuruBkController extends Controller
 
         $validated['telp_gurubk'] = '+62' . $request->telp_gurubk;
         $gurubks = GuruBk::where('id', $id)->first();
+
+        if ($request->nip_gurubk) {
+            $validated['nip_gurubk'] = $request->nip_gurubk;
+        } else {
+            $validated['nip_gurubk'] = $gurubks->nip_gurubk;
+        }
 
         if ($request->file('foto_gurubk')) {
 

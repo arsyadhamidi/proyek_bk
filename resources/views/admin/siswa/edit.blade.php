@@ -9,8 +9,8 @@
                 @csrf
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('data-siswa.show', $siswas->kelas_id) }}" class="btn bg-gradient-danger">
-                            <i class="fas fa-arrow-alt-circle-left"></i>
+                        <a href="{{ route('data-siswa.show', $siswas->kelas_id) }}" class="btn btn-default">
+                            <i class="fas fa-arrow-left"></i>
                             Kembali
                         </a>
                     </div>
@@ -256,7 +256,10 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn bg-gradient-success">Simpan Data</button>
+                        <button type="submit" class="btn bg-gradient-success">
+                            <i class="fas fa-save"></i>
+                            Simpan Data
+                        </button>
                     </div>
                 </div>
             </form>

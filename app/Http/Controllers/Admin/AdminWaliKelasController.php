@@ -29,7 +29,6 @@ class AdminWaliKelasController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nip_walikelas' => 'required|min:4|unique:wali_kelas,nip_walikelas',
             'nama_walikelas' => 'required|min:4',
             'jk_walikelas' => 'required',
             'telp_walikelas' => 'required|min:10',
@@ -37,8 +36,6 @@ class AdminWaliKelasController extends Controller
             'kelas_id' => 'required',
             'email_walikelas' => 'required',
         ], [
-            'nip_walikelas.required' => 'Nip Wali Kelas tidak boleh kosong',
-            'nip_walikelas.unique' => 'Nip Wali Kelas tidak boleh kosong',
             'nama_walikelas.required' => 'Nama Wali Kelas tidak boleh kosong',
             'jk_walikelas.required' => 'Jenis Kelamin Wali Kelas tidak boleh kosong',
             'jurusan_id.required' => 'Jurusan Wali Kelas tidak boleh kosong',
@@ -49,6 +46,12 @@ class AdminWaliKelasController extends Controller
         ]);
 
         $validated['telp_walikelas'] = '+62' . $request->telp_walikelas;
+
+        if ($request->nip_walikelas) {
+            $validated['nip_walikelas'] = $request->nip_walikelas;
+        } else {
+            $validated['nip_walikelas'] = null;
+        }
 
         if ($request->file('foto_walikelas')) {
             $validated['foto_walikelas'] = $request->file('foto_walikelas')->store('foto_walikelas');
@@ -90,7 +93,6 @@ class AdminWaliKelasController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'nip_walikelas' => 'required|min:4|unique:wali_kelas,nip_walikelas',
             'nama_walikelas' => 'required|min:4',
             'jk_walikelas' => 'required',
             'telp_walikelas' => 'required|min:10',
@@ -98,8 +100,6 @@ class AdminWaliKelasController extends Controller
             'kelas_id' => 'required',
             'email_walikelas' => 'required',
         ], [
-            'nip_walikelas.required' => 'Nip Wali Kelas tidak boleh kosong',
-            'nip_walikelas.unique' => 'Nip Wali Kelas sudah tersedia',
             'nama_walikelas.required' => 'Nama Wali Kelas tidak boleh kosong',
             'jk_walikelas.required' => 'Jenis Kelamin Wali Kelas tidak boleh kosong',
             'jurusan_id.required' => 'Jurusan Wali Kelas tidak boleh kosong',
@@ -112,6 +112,12 @@ class AdminWaliKelasController extends Controller
         $validated['telp_walikelas'] = '+62' . $request->telp_walikelas;
 
         $walikelass = WaliKelas::where('id', $id)->first();
+
+        if ($request->nip_walikelas) {
+            $validated['nip_walikelas'] = $request->nip_walikelas;
+        } else {
+            $validated['nip_walikelas'] = $walikelass->nip_walikelas;
+        }
 
         if ($request->file('foto_walikelas')) {
 

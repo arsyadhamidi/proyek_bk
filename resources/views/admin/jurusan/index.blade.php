@@ -12,17 +12,6 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ session('error') }}
-                        </div>
-                    @elseif (session('success'))
-                        <div class="alert alert-success  alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ session('success') }}
-                        </div>
-                    @endif
                     <table class="table table-bordered table-striped" id="myTable">
                         <thead>
                             <th>No.</th>
@@ -36,19 +25,17 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $data->kode_jurusan ?? '-' }}</td>
                                     <td>{{ $data->nama_jurusan ?? '-' }}</td>
-                                    <td class="project-actions text-right">
+                                    <td class="d-flex">
                                         <form action="{{ route('data-jurusan.destroy', $data->id) }}" method="POST"
-                                            onsubmit="return confirm('Apakah anda yakin untuk menghapus data ini?')">
+                                            id="jurusanForm">
                                             @method('DELETE')
                                             @csrf
                                             <a href="{{ route('data-jurusan.edit', $data->id) }}"
                                                 class="btn btn-sm bg-gradient-info">
-                                                <i class="fas fa-pen"></i>
-                                                Edit
+                                                <i class="fas fa-edit"></i>
                                             </a>
                                             <button type="submit" class="btn btn-sm bg-gradient-danger">
                                                 <i class="fas fa-trash-alt"></i>
-                                                Hapus
                                             </button>
                                         </form>
                                     </td>
@@ -61,3 +48,28 @@
         </div>
     </div>
 @endsection
+@push('custom-script')
+    <script>
+        // Mendengarkan acara pengiriman formulir
+        document.getElementById('jurusanForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah pengiriman formulir standar
+
+            // Tampilkan SweetAlert saat formulir dikirim
+            Swal.fire({
+                icon: 'info',
+                title: 'Hapus Data Jurusan!',
+                text: 'Apakah Anda yakin ingin untuk menghapus data ini?',
+                showCancelButton: true, // Menampilkan tombol batal
+                confirmButtonText: 'Ya',
+                confirmButtonColor: '#28a745', // Warna hijau untuk tombol konfirmasi
+                cancelButtonText: 'Tidak',
+                cancelButtonColor: '#dc3545' // Warna merah untuk tombol pembatalan
+            }).then((result) => {
+                // Lanjutkan ke tindakan berikutnya, misalnya mengirimkan formulir
+                if (result.isConfirmed) {
+                    document.getElementById('jurusanForm').submit(); // Melanjutkan pengiriman formulir
+                }
+            });
+        });
+    </script>
+@endpush

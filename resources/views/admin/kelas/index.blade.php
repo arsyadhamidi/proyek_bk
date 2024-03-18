@@ -9,17 +9,6 @@
                     Data Kelas
                 </div>
                 <div class="card-body">
-                    @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ session('error') }}
-                        </div>
-                    @elseif (session('success'))
-                        <div class="alert alert-success  alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ session('success') }}
-                        </div>
-                    @endif
                     <table class="table table-bordered table-striped" id="myTable">
                         <thead>
                             <th>No.</th>
@@ -34,7 +23,8 @@
                                     <td>{{ $data->kode_jurusan ?? '-' }}</td>
                                     <td>{{ $data->nama_jurusan ?? '-' }}</td>
                                     <td>
-                                        <a href="{{ route('data-kelas.show', $data->id) }}" class="btn bg-gradient-primary">
+                                        <a href="{{ route('data-kelas.show', $data->id) }}"
+                                            class="btn btn-sm bg-gradient-primary">
                                             <i class="fas fa-eye"></i>
                                             Lihat
                                         </a>

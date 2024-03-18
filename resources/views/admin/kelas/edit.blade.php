@@ -10,8 +10,8 @@
                 @csrf
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('data-kelas.index') }}" class="btn bg-gradient-secondary">
-                            <i class="fas fa-arrow-circle-left"></i>
+                        <a href="{{ route('data-kelas.index') }}" class="btn btn-default">
+                            <i class="fas fa-arrow-left"></i>
                             Kembali
                         </a>
                     </div>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn bg-gradient-success">
-                            <i class="fas fa-arrow-circle-right"></i>
+                            <i class="fas fa-save"></i>
                             Simpan Data
                         </button>
                     </div>

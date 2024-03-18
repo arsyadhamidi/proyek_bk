@@ -6,8 +6,8 @@
         <div class="col-lg">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('data-kelas.index') }}" class="btn bg-gradient-secondary">
-                        <i class="fas fa-arrow-circle-left"></i>
+                    <a href="{{ route('data-kelas.index') }}" class="btn btn-default">
+                        <i class="fas fa-arrow-left"></i>
                         Kembali
                     </a>
                     <a href="{{ route('data-kelas.create') }}" class="btn bg-gradient-primary">
@@ -26,19 +26,16 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $data->nama_kelas ?? '-' }}</td>
-                                <td class="project-actions text-right">
+                                <td class="d-flex">
+                                    <a href="{{ route('data-kelas.edit', $data->id) }}" class="btn btn-sm bg-gradient-info">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                     <form action="{{ route('data-kelas.destroy', $data->id) }}" method="POST"
-                                        onsubmit="return confirm('Apakah anda yakin untuk menghapus data ini?')">
+                                        id="kelasForm" class="mx-2">
                                         @method('DELETE')
                                         @csrf
-                                        <a href="{{ route('data-kelas.edit', $data->id) }}"
-                                            class="btn btn-sm bg-gradient-primary">
-                                            <i class="fas fa-pen"></i>
-                                            Edit
-                                        </a>
                                         <button type="submit" class="btn btn-sm bg-gradient-danger">
                                             <i class="fas fa-trash-alt"></i>
-                                            Hapus
                                         </button>
                                     </form>
                                 </td>
@@ -50,3 +47,28 @@
         </div>
     </div>
 @endsection
+@push('custom-script')
+    <script>
+        // Mendengarkan acara pengiriman formulir
+        document.getElementById('kelasForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah pengiriman formulir standar
+
+            // Tampilkan SweetAlert saat formulir dikirim
+            Swal.fire({
+                icon: 'info',
+                title: 'Hapus Data Kelas!',
+                text: 'Apakah Anda yakin ingin untuk menghapus data ini?',
+                showCancelButton: true, // Menampilkan tombol batal
+                confirmButtonText: 'Ya',
+                confirmButtonColor: '#28a745', // Warna hijau untuk tombol konfirmasi
+                cancelButtonText: 'Tidak',
+                cancelButtonColor: '#dc3545' // Warna merah untuk tombol pembatalan
+            }).then((result) => {
+                // Lanjutkan ke tindakan berikutnya, misalnya mengirimkan formulir
+                if (result.isConfirmed) {
+                    document.getElementById('kelasForm').submit(); // Melanjutkan pengiriman formulir
+                }
+            });
+        });
+    </script>
+@endpush

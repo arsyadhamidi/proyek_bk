@@ -6,8 +6,8 @@
         <div class="col-lg">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('data-siswa.index') }}" class="btn bg-gradient-danger">
-                        <i class="fas fa-arrow-circle-left"></i>
+                    <a href="{{ route('data-siswa.index') }}" class="btn btn-default">
+                        <i class="fas fa-arrow-left"></i>
                         Kembali
                     </a>
                 </div>
@@ -23,7 +23,8 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $data->nama_kelas ?? '-' }}</td>
                                 <td>
-                                    <a href="{{ route('data-siswa.show', $data->id) }}" class="btn bg-gradient-primary">
+                                    <a href="{{ route('data-siswa.show', $data->id) }}"
+                                        class="btn btn-sm bg-gradient-primary">
                                         <i class="fas fa-eye"></i>
                                         Lihat
                                     </a>
