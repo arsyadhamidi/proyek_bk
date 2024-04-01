@@ -16,9 +16,11 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
+                                <th>Gambar</th>
                                 <th>NIP</th>
                                 <th>Nama Lengkap</th>
                                 <th>Email</th>
+                                <th>Telp</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -26,9 +28,19 @@
                             @foreach ($gurubks as $data)
                                 <tr>
                                     <td width="3%">{{ $loop->iteration }}</td>
+                                    <td>
+                                        @if ($data->foto_gurubk)
+                                            <img src="{{ asset('storage/' . $data->foto_gurubk) }}"
+                                                class="img-fluid rounded" width="100">
+                                        @else
+                                            <img src="{{ asset('images/foto-profile.png') }}" class="img-fluid rounded"
+                                                width="100">
+                                        @endif
+                                    </td>
                                     <td>{{ $data->nip_gurubk ?? '-' }}</td>
                                     <td>{{ $data->nama_gurubk ?? '-' }}</td>
                                     <td>{{ $data->email_gurubk ?? '-' }}</td>
+                                    <td>{{ $data->telp_gurubk ?? '-' }}</td>
                                     <td class="d-flex">
                                         <a href="{{ route('data-gurubk.edit', $data->id) }}"
                                             class="btn btn-sm bg-gradient-info">
@@ -76,4 +88,5 @@
             });
         });
     </script>
+    @include('sweetalert::alert')
 @endpush

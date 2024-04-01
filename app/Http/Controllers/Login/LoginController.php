@@ -28,7 +28,7 @@ class LoginController extends Controller
 
             $request->session()->regenerate();
 
-            return redirect()->intended('/dashboard')->with('success', 'Login Berhasil!');
+            return redirect()->intended('/dashboard');
         } else {
             return back()->with('error', 'Email Address atau password anda salah!');
         }

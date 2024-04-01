@@ -42,12 +42,13 @@
                                     <td>{{ $data->balasan_online ?? '-' }}</td>
                                     <td>
                                         @if ($data->balasan_online != null)
-                                            <button type="button" class="btn bg-gradient-success" type="submit" disabled>
+                                            <button type="button" class="btn btn-sm bg-gradient-success" type="submit"
+                                                disabled>
                                                 Selesai
                                             </button>
                                         @else
                                             <a href="{{ route('layanan-online.edit', $data->id) }}"
-                                                class="btn bg-gradient-primary">
+                                                class="btn btn-sm bg-gradient-primary">
                                                 <i class="fas fa-edit"></i>
                                                 Balasan
                                             </a>

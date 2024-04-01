@@ -84,4 +84,5 @@
             });
         });
     </script>
+    @include('sweetalert::alert')
 @endpush

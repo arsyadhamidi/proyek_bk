@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers\GuruBk;
 
-use App\Models\Siswa;
-use App\Models\Laporan;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Laporan;
+use App\Models\Siswa;
+use Illuminate\Http\Request;
 
 class GuruBkLaporanController extends Controller
 {
 
     public function index()
     {
+        $laporans = Siswa::whereHas('laporan', function ($query) {
+            $query->whereNotNull('siswa_id');
+        })->latest()->get();
         return view('guru-bk.laporan.index', [
-            'siswas' => Siswa::latest()->get(),
+            'siswas' => $laporans,
         ]);
     }
 

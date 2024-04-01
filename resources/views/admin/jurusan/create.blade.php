@@ -18,7 +18,10 @@
                         <div class="row">
                             <div class="col-lg">
                                 <div class="mb-3">
-                                    <label>Kode Jurusan</label>
+                                    <label>
+                                        Kode Jurusan
+                                        <span class="text-danger">*</span>
+                                    </label>
                                     <input type="text" name="kode_jurusan"
                                         class="form-control @error('kode_jurusan') is-invalid @enderror"
                                         value="{{ old('kode_jurusan') }}" placeholder="Masukan kode jurusan">
@@ -31,7 +34,10 @@
                             </div>
                             <div class="col-lg">
                                 <div class="mb-3">
-                                    <label>Nama Jurusan</label>
+                                    <label>
+                                        Nama Jurusan
+                                        <span class="text-danger">*</span>
+                                    </label>
                                     <input type="text" name="nama_jurusan"
                                         class="form-control @error('nama_jurusan') is-invalid @enderror"
                                         value="{{ old('nama_jurusan') }}" placeholder="Masukan nama jurusan">

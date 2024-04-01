@@ -16,6 +16,7 @@
                             <th>Gambar</th>
                             <th>Nama Lengkap</th>
                             <th>Email Address</th>
+                            <th>Password</th>
                             <th>Status</th>
                         </thead>
                         <tbody>
@@ -33,6 +34,7 @@
                                     </td>
                                     <td>{{ $data->name ?? '-' }}</td>
                                     <td>{{ $data->email ?? '-' }}</td>
+                                    <td>{{ $data->duplicate ?? '-' }}</td>
                                     <td>{{ $data->level ?? '-' }}</td>
                                 </tr>
                             @endforeach
@@ -42,4 +44,5 @@
             </div>
         </div>
     </div>
+    @include('sweetalert::alert')
 @endsection

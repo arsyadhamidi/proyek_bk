@@ -50,10 +50,12 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="/dashboard" class="nav-link">Dashboard</a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
             </ul>
+
+
+            <marquee>
+                Tersenyumlah saat melangkah ke dunia yang penuh warna dan inspirasi
+            </marquee>
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
@@ -164,7 +166,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-light elevation-4 bg-primary">
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="/dashboard" class="brand-link">
                 <img src="{{ asset('images/logo.png') }}" alt="AdminLTE Logo" class="brand-image">
@@ -291,6 +293,13 @@
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
+
+                <div class="row mt-4">
+                    <div class="col-lg text-center">
+                        <img src="{{ asset('images/icon.png') }}" class="img-fluid text-center" width="150">
+                    </div>
+                </div>
+
             </div>
             <!-- /.sidebar -->
         </aside>
@@ -320,7 +329,7 @@
         <footer class="main-footer">
             <strong>Copyright &copy; {{ date('Y') }} BKita
                 <div class="float-right d-none d-sm-inline-block">
-                    <b>Version</b> 3.2.0-rc
+                    <b>Version</b> 1.0.0-BKita
                 </div>
         </footer>
 
@@ -369,7 +378,6 @@
         });
     </script>
     @stack('custom-script')
-    @include('sweetalert::alert')
 </body>
 
 </html>

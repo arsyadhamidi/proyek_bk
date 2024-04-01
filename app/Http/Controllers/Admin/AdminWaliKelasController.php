@@ -19,39 +19,44 @@ class AdminWaliKelasController extends Controller
         ]);
     }
 
-    public function create()
+    public function showkelas($id)
+    {
+        return view('admin.wali-kelas.show-kelas', [
+            'kelass' => Kelas::where('jurusan_id', $id)->latest()->get(),
+            'jurusans' => Jurusan::where('id', $id)->first(),
+        ]);
+    }
+
+    public function create($id)
     {
         return view('admin.wali-kelas.create', [
-            'jurusans' => Jurusan::all(),
+            'kelass' => Kelas::where('id', $id)->first(),
         ]);
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'nip_walikelas' => 'required',
             'nama_walikelas' => 'required|min:4',
             'jk_walikelas' => 'required',
             'telp_walikelas' => 'required|min:10',
             'jurusan_id' => 'required',
             'kelas_id' => 'required',
-            'email_walikelas' => 'required',
+            'email_walikelas' => 'required|unique:wali_kelas',
         ], [
-            'nama_walikelas.required' => 'Nama Wali Kelas tidak boleh kosong',
-            'jk_walikelas.required' => 'Jenis Kelamin Wali Kelas tidak boleh kosong',
-            'jurusan_id.required' => 'Jurusan Wali Kelas tidak boleh kosong',
-            'kelas_id.required' => 'Kelas Wali Kelas tidak boleh kosong',
+            'nip_walikelas.required' => 'NIP / Kode Wali Kelas wajib diisi',
+            'nama_walikelas.required' => 'Nama Wali Kelas wajib diisi',
+            'jk_walikelas.required' => 'Jenis Kelamin Wali Kelas wajib diisi',
+            'jurusan_id.required' => 'Jurusan Wali Kelas wajib diisi',
+            'kelas_id.required' => 'Kelas Wali Kelas wajib diisi',
             'nip_walikelas.min' => 'Nip Wali Kelas minimal 4 karakter',
             'nama_walikelas.min' => 'Nama Wali Kelas minimal 4 karakter',
             'telp_walikelas.min' => 'Telp Wali Kelas minimal 10 karakter',
+            'email_walikelas.required' => 'Email Wali Kelas wajib diisi',
+            'email_walikelas.unique' => 'Email Wali Kelas sudah tersedia',
+            'telp_walikelas.required' => 'Telp Wali Kelas wajib diisi',
         ]);
-
-        $validated['telp_walikelas'] = '+62' . $request->telp_walikelas;
-
-        if ($request->nip_walikelas) {
-            $validated['nip_walikelas'] = $request->nip_walikelas;
-        } else {
-            $validated['nip_walikelas'] = null;
-        }
 
         if ($request->file('foto_walikelas')) {
             $validated['foto_walikelas'] = $request->file('foto_walikelas')->store('foto_walikelas');
@@ -67,18 +72,20 @@ class AdminWaliKelasController extends Controller
             'name' => $validated['nama_walikelas'],
             'email' => $validated['email_walikelas'],
             'password' => bcrypt('12345678'),
+            'duplicate' => '12345678',
             'telp' => $validated['telp_walikelas'],
             'level' => 'Wali Kelas',
             'walikelas_id' => $walikelass->id,
         ]);
 
-        return redirect('data-walikelas/' . $request->jurusan_id)->with('success', 'Data wali kelas berhasil ditambahkan!');
+        return redirect('data-walikelas/show/' . $request->kelas_id)->with('success', 'Data wali kelas berhasil ditambahkan!');
     }
 
     public function show($id)
     {
         return view('admin.wali-kelas.show', [
-            'walikelass' => WaliKelas::where('jurusan_id', $id)->latest()->get(),
+            'walikelass' => WaliKelas::where('kelas_id', $id)->latest()->get(),
+            'kelass' => Kelas::where('id', $id)->first(),
         ]);
     }
 
@@ -86,38 +93,34 @@ class AdminWaliKelasController extends Controller
     {
         return view('admin.wali-kelas.edit', [
             'walikelass' => WaliKelas::where('id', $id)->first(),
-            'jurusans' => Jurusan::all(),
         ]);
     }
 
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
+            'nip_walikelas' => 'required',
             'nama_walikelas' => 'required|min:4',
             'jk_walikelas' => 'required',
             'telp_walikelas' => 'required|min:10',
             'jurusan_id' => 'required',
             'kelas_id' => 'required',
-            'email_walikelas' => 'required',
+            'email_walikelas' => 'required|unique:wali_kelas',
         ], [
-            'nama_walikelas.required' => 'Nama Wali Kelas tidak boleh kosong',
-            'jk_walikelas.required' => 'Jenis Kelamin Wali Kelas tidak boleh kosong',
-            'jurusan_id.required' => 'Jurusan Wali Kelas tidak boleh kosong',
-            'kelas_id.required' => 'Kelas Wali Kelas tidak boleh kosong',
+            'nip_walikelas.required' => 'NIP / Kode Wali Kelas wajib diisi',
+            'nama_walikelas.required' => 'Nama Wali Kelas wajib diisi',
+            'jk_walikelas.required' => 'Jenis Kelamin Wali Kelas wajib diisi',
+            'jurusan_id.required' => 'Jurusan Wali Kelas wajib diisi',
+            'kelas_id.required' => 'Kelas Wali Kelas wajib diisi',
             'nip_walikelas.min' => 'Nip Wali Kelas minimal 4 karakter',
             'nama_walikelas.min' => 'Nama Wali Kelas minimal 4 karakter',
             'telp_walikelas.min' => 'Telp Wali Kelas minimal 10 karakter',
+            'email_walikelas.required' => 'Email Wali Kelas wajib diisi',
+            'email_walikelas.unique' => 'Email Wali Kelas sudah tersedia',
+            'telp_walikelas.required' => 'Telp Wali Kelas wajib diisi',
         ]);
 
-        $validated['telp_walikelas'] = '+62' . $request->telp_walikelas;
-
         $walikelass = WaliKelas::where('id', $id)->first();
-
-        if ($request->nip_walikelas) {
-            $validated['nip_walikelas'] = $request->nip_walikelas;
-        } else {
-            $validated['nip_walikelas'] = $walikelass->nip_walikelas;
-        }
 
         if ($request->file('foto_walikelas')) {
 
@@ -138,14 +141,15 @@ class AdminWaliKelasController extends Controller
             'name' => $validated['nama_walikelas'],
             'email' => $validated['email_walikelas'],
             'password' => bcrypt('12345678'),
+            'duplicate' => '12345678',
             'telp' => $validated['telp_walikelas'],
             'level' => 'Wali Kelas',
         ]);
 
-        return redirect('data-walikelas/' . $request->jurusan_id)->with('success', 'Data wali kelas berhasil diedit!');
+        return redirect('data-walikelas/show/' . $request->kelas_id)->with('success', 'Data wali kelas berhasil diedit!');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $user = User::where('walikelas_id', $id)->first();
 
@@ -158,7 +162,7 @@ class AdminWaliKelasController extends Controller
 
         WaliKelas::where('id', $id)->delete();
 
-        return redirect('data-walikelas')->with('success', 'Data wali kelas berhasil hapus!');
+        return redirect('data-walikelas/show/' . $request->kelas_id)->with('success', 'Data wali kelas berhasil hapus!');
 
     }
 

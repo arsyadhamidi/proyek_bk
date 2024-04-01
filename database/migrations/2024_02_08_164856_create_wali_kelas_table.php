@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_walikelas');
             $table->enum('jk_walikelas', ['Laki-Laki', 'Perempuan']);
             $table->string('telp_walikelas');
-            $table->string('email_walikelas');
+            $table->string('email_walikelas')->unique();
             $table->foreignId('kelas_id');
             $table->foreignId('jurusan_id');
             $table->string('foto_walikelas')->nullable();

@@ -50,30 +50,27 @@
                                         @endif
                                     </td>
                                     <td>{{ $data->laporan_siswa ?? '-' }}</td>
-                                    <td>
+                                    <td class="d-flex">
                                         @if ($data->status_laporan == 'Selesai')
-                                            <button type="button" class="btn bg-gradient-primary" disabled>
+                                            <button type="button" class="btn btn-sm bg-gradient-info" disabled>
                                                 <i class="fas fa-edit"></i>
-                                                Edit
                                             </button>
-                                            <button type="button" class="btn bg-gradient-danger" disabled>
+                                            <button type="button" class="btn btn-sm bg-gradient-danger mx-2" disabled>
                                                 <i class="fas fa-trash-alt"></i>
-                                                Hapus
                                             </button>
                                         @elseif ($data->status_laporan == 'Pengajuan')
                                             <a href="{{ route('laporan-walikelas.edit', $data->id) }}"
-                                                class="btn bg-gradient-primary">
+                                                class="btn btn-sm bg-gradient-info">
                                                 <i class="fas fa-edit"></i>
-                                                Edit
                                             </a>
                                             <form action="{{ route('laporan-walikelas.destroy', $data->id) }}"
                                                 method="POST"
-                                                onclick="return confirm('Apakah anda yakin untuk menghapus data ini ?');">
+                                                onclick="return confirm('Apakah anda yakin untuk menghapus data ini ?');"
+                                                class="mx-2">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="submit" class="btn bg-gradient-danger">
+                                                <button type="submit" class="btn btn-sm bg-gradient-danger">
                                                     <i class="fas fa-trash-alt"></i>
-                                                    Hapus
                                                 </button>
                                             </form>
                                         @else

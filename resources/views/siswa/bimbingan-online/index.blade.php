@@ -43,24 +43,23 @@
                                     <td>{{ $data->layanan_online ?? '-' }}</td>
                                     <td>{{ $data->keterangan_online ?? '-' }}</td>
                                     <td>{{ $data->balasan_online ?? '-' }}</td>
-                                    <td>
+                                    <td class="d-flex">
                                         @if ($data->balasan_online != null)
-                                            <button type="button" class="btn bg-gradient-success" type="submit" disabled>
+                                            <button type="button" class="btn btn-sm bg-gradient-success" type="submit"
+                                                disabled>
                                                 Selesai
                                             </button>
                                         @else
                                             <a href="{{ route('bimbingan-online.edit', $data->id) }}"
-                                                class="btn bg-gradient-primary">
+                                                class="btn btn-sm bg-gradient-info">
                                                 <i class="fas fa-edit"></i>
-                                                Edit
                                             </a>
                                             <form action="{{ route('bimbingan-online.destroy', $data->id) }}" method="POST"
-                                                onclick="return confirm('Apakah anda yakin untuk menghapus data ini?')">
+                                                id="bimbinganForm" class="mx-2">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn bg-gradient-danger">
+                                                <button type="submit" class="btn btn-sm bg-gradient-danger">
                                                     <i class="fas fa-trash-alt"></i>
-                                                    Hapus
                                                 </button>
                                             </form>
                                         @endif
@@ -74,3 +73,28 @@
         </div>
     </div>
 @endsection
+@push('custom-script')
+    <script>
+        // Mendengarkan acara pengiriman formulir
+        document.getElementById('bimbinganForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah pengiriman formulir standar
+
+            // Tampilkan SweetAlert saat formulir dikirim
+            Swal.fire({
+                icon: 'info',
+                title: 'Hapus Bimbingan Online!',
+                text: 'Apakah Anda yakin ingin untuk menghapus data ini?',
+                showCancelButton: true, // Menampilkan tombol batal
+                confirmButtonText: 'Ya',
+                confirmButtonColor: '#28a745', // Warna hijau untuk tombol konfirmasi
+                cancelButtonText: 'Tidak',
+                cancelButtonColor: '#dc3545' // Warna merah untuk tombol pembatalan
+            }).then((result) => {
+                // Lanjutkan ke tindakan berikutnya, misalnya mengirimkan formulir
+                if (result.isConfirmed) {
+                    document.getElementById('bimbinganForm').submit(); // Melanjutkan pengiriman formulir
+                }
+            });
+        });
+    </script>
+@endpush

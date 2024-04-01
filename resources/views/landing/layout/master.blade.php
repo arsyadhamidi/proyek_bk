@@ -126,17 +126,12 @@
                         menuju keberhasilan dan kesejahteraan. Mari kita mulai perjalanan menuju pertumbuhan pribadi dan
                         kebahagiaan bersama!
                     </small>
-                    <div class="btn-wrapper">
-                        <div class="text-center">
-                            <a href="#" class="btn btn-primary wow slideInLeft">Bimbingan Selengkapnya</a>
-                            &nbsp;&nbsp;&nbsp;<a href="#" class="btn btn-default wow slideInRight">Layanan
-                                Kami</a>
-                        </div>
-                    </div><!-- end row -->
                 </div>
             </div>
             <div class="slider-bottom">
-                <span>Explore <i class="fa fa-angle-down"></i></span>
+                <a href="#aboutContent">
+                    <span style="color: white">Explore <i class="fa fa-angle-down"></i></span>
+                </a>
             </div>
         </section>
 
@@ -179,10 +174,6 @@
                             </div><!-- end row -->
 
                             <hr class="invis">
-
-                            <div class="btn-wrapper">
-                                <a href="#" class="btn btn-primary">Baca Selengkapnya</a>
-                            </div>
 
                         </div><!-- end module -->
                     </div><!-- end col -->
@@ -278,10 +269,6 @@
                 </div><!-- end row -->
 
                 <hr class="invis">
-
-                <div class="section-button text-center">
-                    <a href="#" class="btn btn-primary">Lihat Selengkapnya</a>
-                </div>
             </div><!-- end container -->
         </section>
 

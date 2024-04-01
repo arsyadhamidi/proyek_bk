@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('agama_siswa');
             $table->string('telp_siswa');
             $table->string('telp_ortu_siswa');
-            $table->string('email_siswa');
+            $table->string('email_siswa')->unique();
             $table->date('tgl_masuk_siswa');
             $table->date('tgl_lulus_siswa')->nullable();
             $table->string('nilai_siswa')->nullable();

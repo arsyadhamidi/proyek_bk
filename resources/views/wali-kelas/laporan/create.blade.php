@@ -7,8 +7,8 @@
                 @csrf
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('laporan-walikelas.index') }}" class="btn bg-gradient-secondary">
-                            <i class="fas fa-arrow-circle-left"></i>
+                        <a href="{{ route('laporan-walikelas.index') }}" class="btn btn-default">
+                            <i class="fas fa-arrow-left"></i>
                             Kembali
                         </a>
                     </div>
@@ -42,7 +42,8 @@
                         <div class="row">
                             <div class="col-lg">
                                 <label>Keterangan Laporan</label>
-                                <textarea name="laporan_siswa" rows="5" class="form-control @error('laporan_siswa') is-invalid @enderror" placeholder="Masukan keterangan laporan">{{ old('laporan_siswa') }}</textarea>
+                                <textarea name="laporan_siswa" rows="5" class="form-control @error('laporan_siswa') is-invalid @enderror"
+                                    placeholder="Masukan keterangan laporan">{{ old('laporan_siswa') }}</textarea>
                                 @error('laporan_siswa')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -52,7 +53,10 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn bg-gradient-success">Simpan Data</button>
+                        <button type="submit" class="btn bg-gradient-success">
+                            <i class="fas fa-save"></i>
+                            Simpan Data
+                        </button>
                     </div>
                 </div>
             </form>

@@ -8,8 +8,8 @@
                 @csrf
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('laporan-walikelas.index') }}" class="btn bg-gradient-secondary">
-                            <i class="fas fa-arrow-circle-left"></i>
+                        <a href="{{ route('laporan-walikelas.index') }}" class="btn btn-default">
+                            <i class="fas fa-arrow-left"></i>
                             Kembali
                         </a>
                     </div>
@@ -22,7 +22,9 @@
                                         id="selectGuruBk" style="width: 100%">
                                         <option value="" selected>Pilih Guru BK</option>
                                         @foreach ($gurubks as $data)
-                                            <option value="{{ $data->id }}" {{ $data->id == $laporans->gurubk_id ? 'selected' : '' }}>{{ $data->nama_gurubk ?? '-' }}</option>
+                                            <option value="{{ $data->id }}"
+                                                {{ $data->id == $laporans->gurubk_id ? 'selected' : '' }}>
+                                                {{ $data->nama_gurubk ?? '-' }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -34,7 +36,9 @@
                                         id="selectSiswaId" style="width: 100%">
                                         <option value="" selected>Pilih Siswa</option>
                                         @foreach ($siswas as $data)
-                                            <option value="{{ $data->id }}" {{ $data->id == $laporans->siswa_id ? 'selected' : '' }}>{{ $data->nama_siswa ?? '-' }}</option>
+                                            <option value="{{ $data->id }}"
+                                                {{ $data->id == $laporans->siswa_id ? 'selected' : '' }}>
+                                                {{ $data->nama_siswa ?? '-' }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -43,7 +47,8 @@
                         <div class="row">
                             <div class="col-lg">
                                 <label>Keterangan Laporan</label>
-                                <textarea name="laporan_siswa" rows="5" class="form-control @error('laporan_siswa') is-invalid @enderror" placeholder="Masukan keterangan laporan">{{ old('laporan_siswa', $laporans->laporan_siswa) }}</textarea>
+                                <textarea name="laporan_siswa" rows="5" class="form-control @error('laporan_siswa') is-invalid @enderror"
+                                    placeholder="Masukan keterangan laporan">{{ old('laporan_siswa', $laporans->laporan_siswa) }}</textarea>
                                 @error('laporan_siswa')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -53,7 +58,10 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn bg-gradient-success">Simpan Data</button>
+                        <button type="submit" class="btn bg-gradient-success">
+                            <i class="fas fa-save"></i>
+                            Simpan Data
+                        </button>
                     </div>
                 </div>
             </form>

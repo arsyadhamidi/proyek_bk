@@ -16,33 +16,34 @@ class AdminKelasController extends Controller
         ]);
     }
 
-    public function create()
+    public function create($id)
     {
         return view('admin.kelas.create', [
-            'jurusans' => Jurusan::all(),
+            'jurusans' => Jurusan::where('id', $id)->first(),
         ]);
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'jurusan_id' => 'required',
             'nama_kelas' => 'required|min:2',
         ], [
-            'jurusan_id.required' => 'Jurusan tidak boleh kosong',
-            'nama_kelas.required' => 'Nama kelas tidak boleh kosong',
+            'nama_kelas.required' => 'Nama kelas wajib diisi',
             'nama_kelas.min' => 'Nama kelas minimal 2 karakter',
         ]);
 
+        $validated['jurusan_id'] = $request->jurusan_id;
+
         Kelas::create($validated);
 
-        return redirect('data-kelas')->with('success', 'Data kelas berhasil di tambahkan!');
+        return redirect('data-kelas/show/' . $request->jurusan_id)->with('success', 'Data kelas berhasil di tambahkan!');
     }
 
     public function show($id)
     {
         return view('admin.kelas.show', [
             'kelass' => Kelas::where('jurusan_id', $id)->latest()->get(),
+            'jurusans' => Jurusan::where('id', $id)->first(),
         ]);
     }
 
@@ -50,29 +51,28 @@ class AdminKelasController extends Controller
     {
         return view('admin.kelas.edit', [
             'kelass' => Kelas::find($id),
-            'jurusans' => Jurusan::all(),
         ]);
     }
 
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'jurusan_id' => 'required',
             'nama_kelas' => 'required|min:4',
         ], [
-            'jurusan_id.required' => 'Jurusan tidak boleh kosong',
-            'nama_kelas.required' => 'Nama kelas tidak boleh kosong',
+            'nama_kelas.required' => 'Nama kelas wajib diisi',
             'nama_kelas.min' => 'Nama kelas minimal 4 karakter',
         ]);
 
+        $validated['jurusan_id'] = $request->jurusan_id;
+
         Kelas::find($id)->update($validated);
 
-        return redirect('data-kelas')->with('success', 'Data kelas berhasil di edit!');
+        return redirect('data-kelas/show/' . $request->jurusan_id)->with('success', 'Data kelas berhasil di edit!');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         Kelas::find($id)->delete();
-        return redirect('data-kelas')->with('success', 'Data kelas berhasil di hapus!');
+        return redirect('data-kelas/show/' . $request->jurusan_id)->with('success', 'Data kelas berhasil di hapus!');
     }
 }

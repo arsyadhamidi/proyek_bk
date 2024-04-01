@@ -27,9 +27,9 @@ class AdminJurusanController extends Controller
             'kode_jurusan' => 'required|min:2',
             'nama_jurusan' => 'required|min:2',
         ], [
-            'kode_jurusan.required' => 'Kode jurusan tidak boleh kosong',
+            'kode_jurusan.required' => 'Kode jurusan wajib diisi',
             'kode_jurusan.min' => 'Kode jurusan minimal 2 karakter',
-            'nama_jurusan.required' => 'Nama jurusan tidak boleh kosong',
+            'nama_jurusan.required' => 'Nama jurusan wajib diisi',
             'nama_jurusan.min' => 'Nama jurusan minimal 2 karakter',
         ]);
 
@@ -51,9 +51,9 @@ class AdminJurusanController extends Controller
             'kode_jurusan' => 'required|min:2',
             'nama_jurusan' => 'required|min:2',
         ], [
-            'kode_jurusan.required' => 'Kode jurusan tidak boleh kosong',
+            'kode_jurusan.required' => 'Kode jurusan wajib diisi',
             'kode_jurusan.min' => 'Kode jurusan minimal 2 karakter',
-            'nama_jurusan.required' => 'Nama jurusan tidak boleh kosong',
+            'nama_jurusan.required' => 'Nama jurusan wajib diisi',
             'nama_jurusan.min' => 'Nama jurusan minimal 2 karakter',
         ]);
 

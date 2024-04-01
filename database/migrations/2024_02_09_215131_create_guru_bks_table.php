@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_gurubk');
             $table->enum('jk_gurubk', ['Laki-Laki', 'Perempuan']);
             $table->string('telp_gurubk');
-            $table->string('email_gurubk');
+            $table->string('email_gurubk')->unique();
             $table->string('foto_gurubk')->nullable();
             $table->timestamps();
         });

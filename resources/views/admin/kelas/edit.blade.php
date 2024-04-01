@@ -6,38 +6,24 @@
     <div class="row">
         <div class="col-lg">
             <form action="{{ route('data-kelas.update', $kelass->id) }}" method="POST">
-                @method('PUT')
                 @csrf
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('data-kelas.index') }}" class="btn btn-default">
+                        <a href="{{ route('data-kelas.show', $kelass->jurusan_id) }}" class="btn btn-default">
                             <i class="fas fa-arrow-left"></i>
                             Kembali
                         </a>
                     </div>
                     <div class="card-body">
+                        <input type="text" name="jurusan_id" class="form-control" value="{{ $kelass->jurusan_id }}"
+                            hidden>
                         <div class="row">
                             <div class="col-lg">
                                 <div class="mb-3">
-                                    <label>Jurusan</label>
-                                    <select name="jurusan_id" class="custom-select">
-                                        <option value="" selected>Pilih Jurusan</option>
-                                        @foreach ($jurusans as $data)
-                                            <option value="{{ $data->id }}"
-                                                {{ $kelass->id == $data->id ? 'selected' : '' }}>
-                                                {{ $data->nama_jurusan ?? '-' }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('jurusan_id')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-lg">
-                                <div class="mb-3">
-                                    <label>Nama Kelas</label>
+                                    <label>
+                                        Nama Kelas
+                                        <span class="text-danger">*</span>
+                                    </label>
                                     <input type="text" name="nama_kelas"
                                         class="form-control @error('nama_kelas') is-invalid @enderror"
                                         value="{{ old('nama_kelas', $kelass->nama_kelas ?? '-') }}"

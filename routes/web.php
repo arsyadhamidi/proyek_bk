@@ -52,8 +52,26 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     // Admin
     Route::group(['middleware' => [CekLevel::class . ':Admin']], function () {
         Route::resource('data-jurusan', AdminJurusanController::class);
-        Route::resource('data-kelas', AdminKelasController::class);
-        Route::resource('data-walikelas', AdminWaliKelasController::class);
+
+        // Data Kelas
+        Route::get('/data-kelas', [AdminKelasController::class, 'index'])->name('data-kelas.index');
+        Route::get('/data-kelas/show/{id}', [AdminKelasController::class, 'show'])->name('data-kelas.show');
+        Route::get('/data-kelas/create/{id}', [AdminKelasController::class, 'create'])->name('data-kelas.create');
+        Route::post('/data-kelas/store', [AdminKelasController::class, 'store'])->name('data-kelas.store');
+        Route::get('/data-kelas/edit/{id}', [AdminKelasController::class, 'edit'])->name('data-kelas.edit');
+        Route::post('/data-kelas/destroy/{id}', [AdminKelasController::class, 'destroy'])->name('data-kelas.destroy');
+        Route::post('/data-kelas/update/{id}', [AdminKelasController::class, 'update'])->name('data-kelas.update');
+
+        // Wali Kelas
+        Route::get('data-walikelas', [AdminWaliKelasController::class, 'index'])->name('data-walikelas.index');
+        Route::get('data-walikelas/showkelas/{id}', [AdminWaliKelasController::class, 'showkelas'])->name('data-walikelas.showkelas');
+        Route::get('data-walikelas/show/{id}', [AdminWaliKelasController::class, 'show'])->name('data-walikelas.show');
+        Route::get('data-walikelas/create/{id}', [AdminWaliKelasController::class, 'create'])->name('data-walikelas.create');
+        Route::get('data-walikelas/edit/{id}', [AdminWaliKelasController::class, 'edit'])->name('data-walikelas.edit');
+        Route::post('data-walikelas/store', [AdminWaliKelasController::class, 'store'])->name('data-walikelas.store');
+        Route::post('data-walikelas/update/{id}', [AdminWaliKelasController::class, 'update'])->name('data-walikelas.update');
+        Route::post('data-walikelas/destroy/{id}', [AdminWaliKelasController::class, 'destroy'])->name('data-walikelas.destroy');
+
         Route::resource('data-gurubk', AdminGuruBkController::class);
         Route::resource('data-siswa', AdminSiswaController::class);
         Route::get('/data-siswa/kelas/{id}', [AdminSiswaController::class, 'showkelas'])->name('siswa-kelas.show');

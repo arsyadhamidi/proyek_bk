@@ -25,25 +25,21 @@ class AdminGuruBkController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'nip_gurubk' => 'required',
             'nama_gurubk' => 'required|min:2',
             'jk_gurubk' => 'required',
             'telp_gurubk' => 'required',
-            'email_gurubk' => 'required|email:dns',
+            'email_gurubk' => 'required|email:dns|unique:guru_bks,email_gurubk',
         ], [
-            'nama_gurubk.required' => 'Nama guru bk tidak boleh kosong!',
-            'nama_gurubk.min' => 'Nama guru bk minimal 2 karakter!',
-            'jk_gurubk.required' => 'Jenis Kelamin guru bk tidak boleh kosong!',
-            'telp_gurubk.required' => 'Telepon guru bk tidak boleh kosong!',
-            'email_gurubk.required' => 'Email guru bk tidak boleh kosong!',
+            'nip_gurubk.required' => 'NIP atau Kode Guru BK wajib diisi',
+            'nama_gurubk.required' => 'Nama guru bk wajib diisi',
+            'nama_gurubk.min' => 'Nama guru bk minimal 2 karakter',
+            'jk_gurubk.required' => 'Jenis Kelamin guru bk wajib diisi',
+            'telp_gurubk.required' => 'Telepon guru bk wajib diisi',
+            'email_gurubk.required' => 'Email guru bk wajib diisi',
+            'email_gurubk.unique' => 'Email guru bk sudah tersedia',
         ]);
 
-        if ($request->nip_gurubk) {
-            $validated['nip_gurubk'] = $request->nip_gurubk;
-        } else {
-            $validated['nip_gurubk'] = null;
-        }
-
-        $validated['telp_gurubk'] = '+62' . $request->telp_gurubk;
         if ($request->file('foto_gurubk')) {
             $validated['foto_gurubk'] = $request->file('foto_gurubk')->store('foto_gurubk');
         } else {
@@ -58,6 +54,7 @@ class AdminGuruBkController extends Controller
             'name' => $validated['nama_gurubk'],
             'email' => $validated['email_gurubk'],
             'password' => bcrypt('12345678'),
+            'duplicate' => '12345678',
             'level' => 'Guru BK',
             'telp' => $validated['telp_gurubk'],
             'gurubk_id' => $gurubks->id,
@@ -76,26 +73,22 @@ class AdminGuruBkController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'nama_gurubk' => 'required|min:4',
+            'nip_gurubk' => 'required',
+            'nama_gurubk' => 'required|min:2',
             'jk_gurubk' => 'required',
             'telp_gurubk' => 'required',
-            'email_gurubk' => 'required|email:dns',
+            'email_gurubk' => 'required|email:dns|unique:guru_bks,email_gurubk',
         ], [
-            'nama_gurubk.required' => 'Nama guru bk tidak boleh kosong!',
-            'nama_gurubk.min' => 'Nama guru bk minimal 4 karakter!',
-            'jk_gurubk.required' => 'Jenis Kelamin guru bk tidak boleh kosong!',
-            'telp_gurubk.required' => 'Telepon guru bk tidak boleh kosong!',
-            'email_gurubk.required' => 'Email guru bk tidak boleh kosong!',
+            'nip_gurubk.required' => 'NIP atau Kode Guru BK wajib diisi',
+            'nama_gurubk.required' => 'Nama guru bk wajib diisi',
+            'nama_gurubk.min' => 'Nama guru bk minimal 2 karakter',
+            'jk_gurubk.required' => 'Jenis Kelamin guru bk wajib diisi',
+            'telp_gurubk.required' => 'Telepon guru bk wajib diisi',
+            'email_gurubk.required' => 'Email guru bk wajib diisi',
+            'email_gurubk.unique' => 'Email guru bk sudah tersedia',
         ]);
 
-        $validated['telp_gurubk'] = '+62' . $request->telp_gurubk;
         $gurubks = GuruBk::where('id', $id)->first();
-
-        if ($request->nip_gurubk) {
-            $validated['nip_gurubk'] = $request->nip_gurubk;
-        } else {
-            $validated['nip_gurubk'] = $gurubks->nip_gurubk;
-        }
 
         if ($request->file('foto_gurubk')) {
 
@@ -108,12 +101,18 @@ class AdminGuruBkController extends Controller
             $validated['foto_gurubk'] = $gurubks->foto_gurubk;
         }
 
+        $checkEmail = User::where('email', $request->email_gurubk)->first();
+        if ($checkEmail) {
+            return back()->with('error', 'Email sudah tersedia');
+        }
+
         GuruBk::where('id', $id)->update($validated);
 
         User::where('gurubk_id', $id)->update([
             'name' => $validated['nama_gurubk'],
             'email' => $validated['email_gurubk'],
             'password' => bcrypt('12345678'),
+            'duplicate' => '12345678',
             'level' => 'Guru BK',
             'telp' => $validated['telp_gurubk'],
         ]);

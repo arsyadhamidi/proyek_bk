@@ -70,9 +70,8 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('mengajukan-bimbingan.edit', $data->id) }}"
-                                            class="btn bg-gradient-success">
+                                            class="btn btn-sm bg-gradient-info">
                                             <i class="fas fa-edit"></i>
-                                            Edit
                                         </a>
                                     </td>
                                 </tr>

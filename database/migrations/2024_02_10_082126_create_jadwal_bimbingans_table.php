@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('gurubk_id');
             $table->string('hari_jadwal');
-            $table->time('jam_mulai_bimbingan');
-            $table->time('jam_selesai_bimbingan');
+            $table->string('jam_mulai_bimbingan');
+            $table->string('jam_selesai_bimbingan');
             $table->timestamps();
         });
     }

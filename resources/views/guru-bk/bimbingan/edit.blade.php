@@ -9,8 +9,8 @@
                 @csrf
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('bimbingan-siswa.index') }}" class="btn bg-gradient-secondary">
-                            <i class="fas fa-arrow-alt-circle-left"></i>
+                        <a href="{{ route('bimbingan-siswa.index') }}" class="btn btn-default">
+                            <i class="fas fa-arrow-left"></i>
                             Kembali
                         </a>
                     </div>

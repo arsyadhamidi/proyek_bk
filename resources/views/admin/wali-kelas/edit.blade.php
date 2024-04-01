@@ -6,20 +6,43 @@
     <div class="row">
         <div class="col-lg">
             <form action="{{ route('data-walikelas.update', $walikelass->id) }}" method="POST">
-                @method('PUT')
                 @csrf
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('data-walikelas.index') }}" class="btn bg-gradient-secondary">
-                            <i class="fas fa-arrow-circle-left"></i>
+                        <a href="{{ route('data-walikelas.show', $walikelass->kelas_id) }}" class="btn btn-default">
+                            <i class="fas fa-arrow-left"></i>
                             Kembali
                         </a>
                     </div>
                     <div class="card-body">
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        <div class="row mb-3">
+                            <div class="col-lg">
+                                <label>Jurusan</label>
+                                <input type="text" name="jurusan_id" class="form-control"
+                                    value="{{ $walikelass->jurusan_id }}" hidden>
+                                <input type="text" class="form-control"
+                                    value="{{ $walikelass->jurusan->nama_jurusan ?? '-' }}" readonly>
+                            </div>
+                            <div class="col-lg">
+                                <label>Kelas</label>
+                                <input type="text" name="kelas_id" class="form-control"
+                                    value="{{ $walikelass->kelas_id }}" hidden>
+                                <input type="text" class="form-control"
+                                    value="{{ $walikelass->kelas->nama_kelas ?? '-' }}" readonly>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-lg">
                                 <div class="mb-3">
-                                    <label>NIP Walikelas</label>
+                                    <label>
+                                        NIP / Kode Walikelas
+                                        <span class="text-danger">*</span>
+                                    </label>
                                     <input type="text" name="nip_walikelas"
                                         class="form-control @error('nip_walikelas') is-invalid @enderror"
                                         value="{{ old('nip_walikelas', $walikelass->nip_walikelas) }}"
@@ -33,7 +56,10 @@
                             </div>
                             <div class="col-lg">
                                 <div class="mb-3">
-                                    <label>Nama Walikelas</label>
+                                    <label>
+                                        Nama Walikelas
+                                        <span class="text-danger">*</span>
+                                    </label>
                                     <input type="text" name="nama_walikelas"
                                         class="form-control @error('nama_walikelas') is-invalid @enderror"
                                         value="{{ old('nama_walikelas', $walikelass->nama_walikelas) }}"
@@ -46,79 +72,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-lg">
-                                <label>Jurusan</label>
-                                <select name="jurusan_id" class="custom-select @error('jurusan_id') is-invalid @enderror"
-                                    id="idJurusan">
-                                    <option value="" selected>Pilih Jurusan</option>
-                                    @foreach ($jurusans as $data)
-                                        <option value="{{ $data->id }}">{{ $data->nama_jurusan ?? '-' }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-lg">
-                                <label>Kelas</label>
-                                <select name="kelas_id" class="custom-select @error('kelas_id') is-invalid @enderror"
-                                    id="idKelas">
-                                    <option value="" selected>Pilih Kelas</option>
-                                </select>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-lg">
                                 <div class="mb-3">
-                                    <label>Jenis Kelamin</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="jk_walikelas" value="Laki-Laki"
-                                            {{ $walikelass->jk_walikelas == 'Laki-Laki' ? 'checked' : '' }}>
-                                        <label class="form-check-label">
-                                            Laki-Laki
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="jk_walikelas" value="Perempuan"
-                                            {{ $walikelass->jk_walikelas == 'Perempuan' ? 'checked' : '' }}>
-                                        <label class="form-check-label">
-                                            Perempuan
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg">
-                                <label>Telp Wali Kelas</label>
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <div class="mb-3">
-                                            <input type="text" name="first_telp" class="form-control" value="+62"
-                                                readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg">
-                                        <div class="mb-3">
-                                            <input type="text" name="telp_walikelas"
-                                                class="form-control @error('telp_walikelas') is-invalid @enderror"
-                                                value="{{ old('telp_walikelas', $walikelass->telp_walikelas) }}"
-                                                placeholder="Cth: 8229852XXXX">
-                                            @error('telp_walikelas')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label>Email Wali Kelas</label>
-                                    <input type="email" name="email_walikelas"
-                                        class="form-control @error('email_walikelas') is-invalid @enderror"
-                                        placeholder="Masukan email guru bk"
-                                        value="{{ old('email_walikelas', $walikelass->email_walikelas) }}">
-                                    @error('email_walikelas')
+                                    <label>
+                                        Jenis Kelamin
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <select name="jk_walikelas"
+                                        class="form-control @error('jk_walikelas') is-invalid @enderror"
+                                        style="width: 100%;" id="selectTambah">
+                                        <option value="" selected>Pilih Jenis Kelamin</option>
+                                        <option value="Laki-Laki"
+                                            {{ $walikelass->jk_walikelas == 'Laki-Laki' ? 'selected' : '' }}>
+                                            Laki-Laki</option>
+                                        <option value="Perempuan"
+                                            {{ $walikelass->jk_walikelas == 'Perempuan' ? 'selected' : '' }}>
+                                            Perempuan</option>
+                                    </select>
+                                    @error('jk_walikelas')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -127,8 +99,58 @@
                             </div>
                             <div class="col-lg">
                                 <div class="mb-3">
-                                    <label>Foto Wali Kelas</label>
-                                    <input type="file" name="foto_walikelas" class="form-control">
+                                    <label>
+                                        Telp Wali Kelas
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" name="telp_walikelas"
+                                        class="form-control @error('telp_walikelas') is-invalid @enderror"
+                                        value="{{ old('telp_walikelas', $walikelass->telp_walikelas) }}"
+                                        placeholder="Masukan nomor telepon">
+                                    @error('telp_walikelas')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label>
+                                        Email Wali Kelas
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="email" name="email_walikelas"
+                                        class="form-control @error('email_walikelas') is-invalid @enderror"
+                                        placeholder="Masukan email guru bk"
+                                        value="{{ old('email_walikelas', $walikelass->email_walikelas) }}" readonly>
+                                    @error('email_walikelas')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg">
+                                <div class="mb-3">
+                                    <label>Foto Wali Kelas</label><br>
+                                    @if ($walikelass->foto_walikelas)
+                                        <img src="{{ asset('storage/' . $walikelass->foto_walikelas) }}"
+                                            class="img-preview mb-3" width="150" height="150">
+                                    @else
+                                        <img src="{{ asset('images/foto-profile.png') }}" class="img-preview mb-3"
+                                            width="150" height="150">
+                                    @endif
+                                    <div class="custom-file">
+                                        <input type="file" name="foto_walikelas" class="custom-file-input"
+                                            id="customFile" onchange="previewImage()">
+                                        <label class="custom-file-label" for="customFile">Choose
+                                            file</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -145,6 +167,15 @@
     </div>
 @endsection
 @push('custom-script')
+    <script>
+        $(document).ready(function() {
+
+            $('#selectTambah').select2({
+                theme: 'bootstrap4',
+            });
+
+        });
+    </script>
     <script>
         $(function() {
             $.ajaxSetup({

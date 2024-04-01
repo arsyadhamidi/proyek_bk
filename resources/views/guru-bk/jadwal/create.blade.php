@@ -8,8 +8,8 @@
                 @csrf
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('buat-jadwal.index') }}" class="btn bg-gradient-danger">
-                            <i class="fas fa-arrow-alt-circle-left"></i>
+                        <a href="{{ route('buat-jadwal.index') }}" class="btn btn-default">
+                            <i class="fas fa-arrow-left"></i>
                             Kembali
                         </a>
                     </div>
@@ -41,9 +41,15 @@
                                     <div class="col-lg">
                                         <div class="mb-3">
                                             <label>Jam Mulai</label>
-                                            <input type="time" name="jam_mulai_bimbingan"
-                                                class="form-control @error('jam_mulai_bimbingan') is-invalid @enderror"
-                                                value="{{ old('jam_mulai_bimbingan') }}">
+                                            <div class="input-group date" id="timepickerMulai" data-target-input="nearest">
+                                                <input type="text" name="jam_mulai_bimbingan"
+                                                    class="form-control datetimepicker-input"
+                                                    data-target="#timepickerMulai" />
+                                                <div class="input-group-append" data-target="#timepickerMulai"
+                                                    data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                                </div>
+                                            </div>
                                             @error('jam_mulai_bimbingan')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -54,14 +60,16 @@
                                     <div class="col-lg">
                                         <div class="mb-3">
                                             <label>Jam Selesai</label>
-                                            <input type="time" name="jam_selesai_bimbingan"
-                                                class="form-control @error('jam_selesai_bimbingan') is-invalid @enderror"
-                                                value="{{ old('jam_selesai_bimbingan') }}">
-                                            @error('jam_selesai_bimbingan')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
+                                            <div class="input-group date" id="timepickerSelesai"
+                                                data-target-input="nearest">
+                                                <input type="text" name="jam_selesai_bimbingan"
+                                                    class="form-control datetimepicker-input"
+                                                    data-target="#timepickerSelesai" />
+                                                <div class="input-group-append" data-target="#timepickerSelesai"
+                                                    data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="far fa-clock"></i></div>
                                                 </div>
-                                            @enderror
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -69,10 +77,24 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn bg-gradient-success">Simpan Data</button>
+                        <button type="submit" class="btn bg-gradient-success">
+                            <i class="fas fa-save"></i>
+                            Simpan Data
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 @endsection
+@push('custom-script')
+    <script>
+        $('#timepickerMulai').datetimepicker({
+            format: 'LT'
+        });
+
+        $('#timepickerSelesai').datetimepicker({
+            format: 'LT'
+        });
+    </script>
+@endpush

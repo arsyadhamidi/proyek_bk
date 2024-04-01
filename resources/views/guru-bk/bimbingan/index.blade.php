@@ -54,7 +54,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('bimbingan-siswa.edit', $data->id) }}"
-                                            class="btn bg-gradient-success">
+                                            class="btn btn-sm bg-gradient-success">
                                             Balasan
                                         </a>
                                     </td>

@@ -49,13 +49,13 @@
                                     <td>
                                         @if ($laporans >= 3)
                                             <a href="https://api.whatsapp.com/send?phone={{ $data->siswa->telp_ortu_siswa ?? '-' }}&text=Halo%20orang%20tua,%20saya%20ingin%20berbicara%20tentang%20anak%20anda."
-                                                class="btn bg-gradient-success" target="_blank">
+                                                class="btn btn-sm bg-gradient-success" target="_blank">
                                                 <i class="fab fa-whatsapp"></i>
                                                 Panggilan Orang Tua
                                             </a>
                                         @else
                                             <a href="{{ route('gurubk-laporan.show', $data->id) }}"
-                                                class="btn bg-gradient-primary">
+                                                class="btn btn-sm bg-gradient-info">
                                                 <i class="fas fa-eye"></i>
                                                 Detail
                                             </a>

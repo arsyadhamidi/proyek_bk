@@ -23,7 +23,7 @@
                                     <td>{{ $data->kode_jurusan ?? '-' }}</td>
                                     <td>{{ $data->nama_jurusan ?? '-' }}</td>
                                     <td>
-                                        <a href="{{ route('data-walikelas.show', $data->id) }}"
+                                        <a href="{{ route('data-walikelas.showkelas', $data->id) }}"
                                             class="btn btn-sm bg-gradient-primary">
                                             <i class="fas fa-eye"></i>
                                             Lihat
