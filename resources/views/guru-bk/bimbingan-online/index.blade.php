@@ -1,58 +1,49 @@
 @extends('admin.layout.master')
-
 @section('menuGuruBkBimbinganOnline', 'active')
-
 @section('content')
     <div class="row">
         <div class="col-lg">
-            <div class="card">
+            <div class="card card-outline card-primary">
                 <div class="card-header">
-                    Data Bimbingan Online
+                    Bimbingan Online
                 </div>
                 <div class="card-body">
-                    @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ session('error') }}
-                        </div>
-                    @elseif (session('success'))
-                        <div class="alert alert-success  alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ session('success') }}
-                        </div>
-                    @endif
                     <table class="table table-bordered table-striped" id="myTable">
-                        <thead>
+                        <thead class="bg-gradient-primary">
                             <tr>
                                 <th>No.</th>
                                 <th>Siswa</th>
-                                <th>Layanan</th>
-                                <th>Bimbingan</th>
-                                <th>Balasan</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Email</th>
+                                <th>Telepon</th>
+                                <th>Pesan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bimbingans as $data)
+                            @foreach ($siswas as $data)
+                                @php
+                                    $countsPesan = \App\Models\BimbinganOnline::where('siswa_id', $data->id)
+                                        ->whereNull('countpesan')
+                                        ->count();
+                                @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $data->siswa->nama_siswa ?? '-' }}</td>
-                                    <td>{{ $data->layanan_online ?? '-' }}</td>
-                                    <td>{{ $data->keterangan_online ?? '-' }}</td>
-                                    <td>{{ $data->balasan_online ?? '-' }}</td>
+                                    <td>{{ $data->nama_siswa ?? '-' }}</td>
+                                    <td>{{ $data->jk_siswa ?? '-' }}</td>
+                                    <td>{{ $data->email_siswa }}</td>
+                                    <td>{{ $data->telp_siswa }}</td>
                                     <td>
-                                        @if ($data->balasan_online != null)
-                                            <button type="button" class="btn btn-sm bg-gradient-success" type="submit"
-                                                disabled>
-                                                Selesai
-                                            </button>
-                                        @else
-                                            <a href="{{ route('layanan-online.edit', $data->id) }}"
-                                                class="btn btn-sm bg-gradient-primary">
-                                                <i class="fas fa-edit"></i>
-                                                Balasan
-                                            </a>
-                                        @endif
+                                        <span class="badge bg-warning">
+                                            {{ $countsPesan ?? '0' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('layanan-online.show', $data->id) }}"
+                                            class="btn btn-sm bg-gradient-success">
+                                            <i class="fas fa-comments"></i>
+                                            Chatt
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

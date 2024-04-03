@@ -6,7 +6,7 @@
         <div class="col-lg">
             <form action="{{ route('buat-jadwal.store') }}" method="POST">
                 @csrf
-                <div class="card">
+                <div class="card card-outline card-primary">
                     <div class="card-header">
                         <a href="{{ route('buat-jadwal.index') }}" class="btn btn-default">
                             <i class="fas fa-arrow-left"></i>

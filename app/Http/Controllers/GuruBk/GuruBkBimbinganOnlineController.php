@@ -4,6 +4,7 @@ namespace App\Http\Controllers\GuruBk;
 
 use App\Http\Controllers\Controller;
 use App\Models\BimbinganOnline;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 
 class GuruBkBimbinganOnlineController extends Controller
@@ -11,23 +12,36 @@ class GuruBkBimbinganOnlineController extends Controller
     public function index()
     {
         return view('guru-bk.bimbingan-online.index', [
-            'bimbingans' => BimbinganOnline::where('gurubk_id', Auth()->user()->gurubk_id)->latest()->get(),
+            'siswas' => Siswa::whereHas('bimbinganOnline', function ($query) {
+                $query->where('gurubk_id', Auth()->user()->gurubk_id);
+            })->latest()->get(),
         ]);
     }
 
-    public function edit($id)
+    public function show($id)
     {
-        return view('guru-bk.bimbingan-online.edit', [
-            'bimbingans' => BimbinganOnline::where('id', $id)->first(),
+        BimbinganOnline::where('siswa_id', $id)->update([
+            'countpesan' => 'Lihat',
+        ]);
+
+        return view('guru-bk.bimbingan-online.show', [
+            'siswas' => Siswa::where('id', $id)->first(),
+            'bimbingans' => BimbinganOnline::where('gurubk_id', Auth()->user()->gurubk_id)->where('siswa_id', $id)->get(),
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function store(Request $request)
     {
-        BimbinganOnline::where('id', $id)->update([
-            'balasan_online' => $request->balasan_online,
+        $siswas = Siswa::where('users_id', Auth()->user()->id)->first();
+
+        BimbinganOnline::create([
+            'siswa_id' => $request->siswa_id,
+            'gurubk_id' => Auth()->user()->gurubk_id,
+            'pesan' => $request->pesan,
+            'statusbimbingan' => 'Guru BK',
         ]);
 
-        return redirect('layanan-online')->with('success', 'Anda berhasil memberikan balasan bimbingan');
+        return redirect('layanan-online/show/' . $request->siswa_id);
     }
+
 }

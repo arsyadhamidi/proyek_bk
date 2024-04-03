@@ -11,9 +11,9 @@ class Bimbingan extends Model
 
     protected $guarded = [];
 
-    public function siswa()
+    public function user()
     {
-        return $this->belongsTo(Siswa::class, 'siswa_id');
+        return $this->belongsTo(User::class, 'siswa_id');
     }
 
     public function gurubk()

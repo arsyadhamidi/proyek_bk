@@ -4,7 +4,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg">
-            <div class="card">
+            <div class="card card-outline card-primary">
                 <div class="card-header">
                     <a href="{{ route('data-walikelas.showkelas', $kelass->jurusan_id) }}" class="btn btn-default">
                         <i class="fas fa-arrow-left"></i>
@@ -17,7 +17,7 @@
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-striped" id="myTable">
-                        <thead>
+                        <thead class="bg-gradient-primary">
                             <th width="5%">No.</th>
                             <th>Gambar</th>
                             <th>Kelas</th>

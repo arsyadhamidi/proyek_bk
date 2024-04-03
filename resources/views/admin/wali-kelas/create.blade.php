@@ -7,7 +7,7 @@
         <div class="col-lg">
             <form action="{{ route('data-walikelas.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="card">
+                <div class="card card-outline card-primary">
                     <div class="card-header">
                         <a href="{{ route('data-walikelas.show', $kelass->id) }}" class="btn btn-default">
                             <i class="fas fa-arrow-left"></i>

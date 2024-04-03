@@ -59,7 +59,8 @@
                                 <div class="mb-3">
                                     <label>Keterangan Bimbingan</label>
                                     <textarea name="keterangan_bimbingan" class="form-control @error('keterangan_bimbingan') is-invalid @enderror"
-                                        rows="5" placeholder="Masukan keluhan yang dialami" readonly>{{ $bimbingans->keterangan_bimbingan ?? '-' }}</textarea>
+                                        rows="5" placeholder="Masukan keluhan yang dialami" readonly>{!! strip_tags($bimbingans->keterangan_bimbingan ?? '-') !!}</textarea>
+
                                 </div>
                             </div>
                         </div>
@@ -68,7 +69,7 @@
                                 <div class="mb-3">
                                     <label>Balasan</label>
                                     <textarea name="balasan_bimbingan" class="form-control @error('balasan_bimbingan') is-invalid @enderror" rows="5"
-                                        placeholder="Masukan balasan bimbingan">{{ old('balasan_bimbingan') }}</textarea>
+                                        placeholder="Masukan balasan bimbingan" id="editor">{{ old('balasan_bimbingan') }}</textarea>
                                 </div>
                             </div>
                         </div>

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use PDF;
-use App\Models\User;
-use App\Models\Siswa;
+use App\Http\Controllers\Controller;
 use App\Models\GuruBk;
 use App\Models\Jurusan;
+use App\Models\Siswa;
+use App\Models\User;
 use App\Models\WaliKelas;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class DashboardController extends Controller
 {
@@ -39,6 +39,29 @@ class DashboardController extends Controller
         return redirect('/dashboard')->with('success', 'Profile berhasil di edit!');
     }
 
+    public function settingemail(Request $request)
+    {
+        $validated = $request->validate([
+            'old_email' => 'required',
+            'email' => 'required|unique:users',
+        ], [
+            'email.required' => 'Email Address wajib diisi!.',
+            'email.unique' => 'Email Address sudah digunakan',
+        ]);
+
+        if ($validated['old_email'] == $validated['email']) {
+            return back()->with('error', 'Email Address sudah digunakan!');
+        } else {
+
+            User::where('id', Auth()->user()->id)->update([
+                'email' => $validated['email'],
+            ]);
+
+            return redirect('/dashboard')->with('success', 'Data berhasil di edit!');
+        }
+
+    }
+
     public function settingpassword(Request $request)
     {
         $validated = $request->validate([
@@ -61,7 +84,10 @@ class DashboardController extends Controller
 
                 $passwords = Hash::make($validated['password']);
 
-                $users = User::where('id', Auth()->user()->id)->update(['password' => $passwords]);
+                $users = User::where('id', Auth()->user()->id)->update([
+                    'password' => $passwords,
+                    'duplicate' => $request->password,
+                ]);
                 return redirect('/dashboard')->with('success', 'Data berhasil di edit!');
 
             }

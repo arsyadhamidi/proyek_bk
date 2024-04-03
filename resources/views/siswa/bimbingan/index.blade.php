@@ -4,7 +4,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg">
-            <div class="card">
+            <div class="card card-outline card-primary">
                 <div class="card-header">
 
                     @php
@@ -40,7 +40,7 @@
                         </div>
                     @endif
                     <table class="table table-bordered table-striped" id="myTable">
-                        <thead>
+                        <thead class="bg-gradient-primary">
                             <tr>
                                 <th>No.</th>
                                 <th>Guru BK</th>
@@ -63,10 +63,10 @@
                                     </td>
                                     <td>{{ $data->status_bimbingan ?? '-' }}</td>
                                     <td>
-                                        {{ $data->keterangan_bimbingan ?? '-' }}
+                                        {!! $data->keterangan_bimbingan ?? '-' !!}
                                     </td>
                                     <td>
-                                        {{ $data->balasan_bimbingan ?? '-' }}
+                                        {!! $data->balasan_bimbingan ?? '-' !!}
                                     </td>
                                     <td>
                                         <a href="{{ route('mengajukan-bimbingan.edit', $data->id) }}"
@@ -82,4 +82,5 @@
             </div>
         </div>
     </div>
+    @include('sweetalert::alert')
 @endsection

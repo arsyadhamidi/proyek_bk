@@ -4,13 +4,13 @@
 @section('content')
     <div class="row">
         <div class="col-lg">
-            <div class="card">
+            <div class="card card-outline card-primary">
                 <div class="card-header">
                     Data Siswa
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-striped" id="myTable">
-                        <thead>
+                        <thead class="bg-gradient-primary">
                             <th>No.</th>
                             <th>Kode Jurusan</th>
                             <th>Nama Jurusan</th>

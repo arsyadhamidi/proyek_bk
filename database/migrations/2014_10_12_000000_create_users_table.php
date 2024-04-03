@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('foto_profile')->nullable();
             $table->foreignId('walikelas_id')->nullable();
             $table->foreignId('gurubk_id')->nullable();
-            $table->foreignId('siswa_id')->nullable();
             $table->timestamps();
         });
     }

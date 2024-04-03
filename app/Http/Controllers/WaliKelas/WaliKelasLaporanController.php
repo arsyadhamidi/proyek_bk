@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\WaliKelas;
 
-use App\Models\Siswa;
+use App\Http\Controllers\Controller;
 use App\Models\GuruBk;
 use App\Models\Laporan;
+use App\Models\Siswa;
 use App\Models\WaliKelas;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class WaliKelasLaporanController extends Controller
 {
@@ -32,7 +32,7 @@ class WaliKelasLaporanController extends Controller
         $validated = $request->validate([
             'gurubk_id' => 'required',
             'siswa_id' => 'required',
-            'laporan_siswa' => 'required'
+            'laporan_siswa' => 'required',
         ]);
 
         $validated['status_laporan'] = 'Pengajuan';
@@ -58,7 +58,7 @@ class WaliKelasLaporanController extends Controller
         $validated = $request->validate([
             'gurubk_id' => 'required',
             'siswa_id' => 'required',
-            'laporan_siswa' => 'required'
+            'laporan_siswa' => 'required',
         ]);
 
         $validated['status_laporan'] = 'Pengajuan';

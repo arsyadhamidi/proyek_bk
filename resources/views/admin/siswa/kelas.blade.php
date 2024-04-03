@@ -4,7 +4,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg">
-            <div class="card">
+            <div class="card card-outline card-primary">
                 <div class="card-header">
                     <a href="{{ route('data-siswa.index') }}" class="btn btn-default">
                         <i class="fas fa-arrow-left"></i>
@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-striped" id="myTable">
-                        <thead>
+                        <thead class="bg-gradient-primary">
                             <th>No.</th>
                             <th>Nama Kelas</th>
                             <th>Aksi</th>

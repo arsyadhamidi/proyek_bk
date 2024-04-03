@@ -6,7 +6,7 @@
         <div class="col-lg">
             <form action="{{ route('data-gurubk.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="card">
+                <div class="card card-outline card-primary">
                     <div class="card-header">
                         <a href="{{ route('data-gurubk.index') }}" class="btn btn-default">
                             <i class="fas fa-arrow-left"></i>

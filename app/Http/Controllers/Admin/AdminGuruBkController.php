@@ -77,15 +77,12 @@ class AdminGuruBkController extends Controller
             'nama_gurubk' => 'required|min:2',
             'jk_gurubk' => 'required',
             'telp_gurubk' => 'required',
-            'email_gurubk' => 'required|email:dns|unique:guru_bks,email_gurubk',
         ], [
             'nip_gurubk.required' => 'NIP atau Kode Guru BK wajib diisi',
             'nama_gurubk.required' => 'Nama guru bk wajib diisi',
             'nama_gurubk.min' => 'Nama guru bk minimal 2 karakter',
             'jk_gurubk.required' => 'Jenis Kelamin guru bk wajib diisi',
             'telp_gurubk.required' => 'Telepon guru bk wajib diisi',
-            'email_gurubk.required' => 'Email guru bk wajib diisi',
-            'email_gurubk.unique' => 'Email guru bk sudah tersedia',
         ]);
 
         $gurubks = GuruBk::where('id', $id)->first();
@@ -101,16 +98,10 @@ class AdminGuruBkController extends Controller
             $validated['foto_gurubk'] = $gurubks->foto_gurubk;
         }
 
-        $checkEmail = User::where('email', $request->email_gurubk)->first();
-        if ($checkEmail) {
-            return back()->with('error', 'Email sudah tersedia');
-        }
-
         GuruBk::where('id', $id)->update($validated);
 
         User::where('gurubk_id', $id)->update([
             'name' => $validated['nama_gurubk'],
-            'email' => $validated['email_gurubk'],
             'password' => bcrypt('12345678'),
             'duplicate' => '12345678',
             'level' => 'Guru BK',

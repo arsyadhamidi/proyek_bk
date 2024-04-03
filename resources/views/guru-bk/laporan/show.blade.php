@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg">
-            <div class="card">
+            <div class="card card-outline card-primary">
                 <div class="card-header">
                     <a href="{{ route('gurubk-laporan.index') }}" class="btn btn-default">
                         Kembali
@@ -20,7 +20,7 @@
                         </div>
                     @endif
                     <table class="table table-bordered table-striped" id="myTable">
-                        <thead>
+                        <thead class="bg-gradient-primary">
                             <tr>
                                 <th>No.</th>
                                 <th>Wali Kelas</th>

@@ -21,8 +21,19 @@ class Siswa extends Model
         return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id');
+    }
+
     public function laporan()
     {
         return $this->hasOne(laporan::class, 'siswa_id');
     }
+
+    public function bimbinganOnline()
+    {
+        return $this->hasOne(BimbinganOnline::class, 'siswa_id');
+    }
+
 }

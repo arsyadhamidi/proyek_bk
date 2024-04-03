@@ -8,7 +8,7 @@
             <form action="{{ route('data-jurusan.update', $jurusans->id) }}" method="POST">
                 @method('PUT')
                 @csrf
-                <div class="card">
+                <div class="card card-primary card-outline">
                     <div class="card-header">
                         <a href="{{ route('data-jurusan.index') }}" class="btn btn-default">
                             <i class="fas fa-arrow-left"></i>

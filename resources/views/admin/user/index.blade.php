@@ -5,13 +5,13 @@
 @section('content')
     <div class="row">
         <div class="col-lg">
-            <div class="card">
+            <div class="card card-outline card-primary">
                 <div class="card-header">
                     Data User Registrasi
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-striped" id="myTable">
-                        <thead>
+                        <thead class="bg-gradient-primary">
                             <th>No</th>
                             <th>Gambar</th>
                             <th>Nama Lengkap</th>

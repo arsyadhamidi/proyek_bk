@@ -7,7 +7,7 @@
         <div class="col-lg">
             <form action="{{ route('data-kelas.update', $kelass->id) }}" method="POST">
                 @csrf
-                <div class="card">
+                <div class="card card-outline card-primary">
                     <div class="card-header">
                         <a href="{{ route('data-kelas.show', $kelass->jurusan_id) }}" class="btn btn-default">
                             <i class="fas fa-arrow-left"></i>

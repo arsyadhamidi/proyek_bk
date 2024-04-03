@@ -4,7 +4,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg">
-            <div class="card">
+            <div class="card card-outline card-primary">
                 <div class="card-header">
                     <a href="{{ route('data-gurubk.create') }}" class="btn bg-gradient-primary">
                         <i class="fas fa-plus"></i>
@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-striped" id="myTable">
-                        <thead>
+                        <thead class="bg-gradient-primary">
                             <tr>
                                 <th>No.</th>
                                 <th>Gambar</th>

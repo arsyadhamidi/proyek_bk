@@ -93,7 +93,7 @@
                                     <input type="email" name="email_gurubk"
                                         class="form-control @error('email_gurubk') is-invalid @enderror"
                                         placeholder="Masukan email guru bk"
-                                        value="{{ old('email_gurubk', $gurubks->email_gurubk) }}">
+                                        value="{{ old('email_gurubk', $gurubks->email_gurubk) }}" readonly>
                                     @error('email_gurubk')
                                         <div class="invalid-feedback">
                                             {{ $message }}

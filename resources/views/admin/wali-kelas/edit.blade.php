@@ -7,7 +7,7 @@
         <div class="col-lg">
             <form action="{{ route('data-walikelas.update', $walikelass->id) }}" method="POST">
                 @csrf
-                <div class="card">
+                <div class="card card-outline card-primary">
                     <div class="card-header">
                         <a href="{{ route('data-walikelas.show', $walikelass->kelas_id) }}" class="btn btn-default">
                             <i class="fas fa-arrow-left"></i>
@@ -157,7 +157,7 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn bg-gradient-success">
-                            <i class="fas fa-arrow-alt-circle-right"></i>
+                            <i class="fas fa-save"></i>
                             Simpan Data
                         </button>
                     </div>

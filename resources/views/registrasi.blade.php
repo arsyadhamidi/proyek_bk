@@ -35,11 +35,11 @@
                     <img src="{{ asset('images/login-icon.png') }}" alt="IMG">
                 </div>
 
-                <form action="/login-action" method="POST" class="login100-form validate-form">
+                <form action="{{ route('registrasi.store') }}" method="POST" class="login100-form validate-form">
                     @csrf
                     <span class="login100-form-title">
-                        BKita
-                        <p>Bersama Kami, Belajar Menjadi Lebih Berarti dan Memuaskan</p>
+                        Form Registrasi
+                        <p>Silahkan isi data anda dengan benar</p>
                     </span>
 
                     @if (session('success'))
@@ -52,52 +52,64 @@
                         </div>
                     @endif
 
-                    <div class="wrap-input100 validate-input">
-                        <input name="email" class="input100 @error('email') is-invalid @enderror" type="email"
-                            placeholder="Email Address" data-validate = "Email tidak boleh kosong">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                        </span>
-                        @error('email')
-                            <div class="invalid-feedback">
-                                {{ $message }}
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <label>Nama Lengkap</label>
+                                <input type="text" name="name"
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    placeholder="Masukan nama lengkap">
+                                @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                        @enderror
-                    </div>
-
-                    <div class="wrap-input100 validate-input" data-validate = "Password is tidak boleh kosong">
-                        <input class="input100 @error('password') is-invalid @enderror" type="password" name="password"
-                            placeholder="Password">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fa fa-lock" aria-hidden="true"></i>
-                        </span>
-                        @error('password')
-                            <div class="invalid-feedback">
-                                {{ $message }}
+                            <div class="mb-3">
+                                <label>Alamat Email</label>
+                                <input type="email" name="email"
+                                    class="form-control @error('email') is-invalid @enderror"
+                                    placeholder="Masukan alamat email">
+                                @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                        @enderror
+                            <div class="mb-3">
+                                <label>Password</label>
+                                <input type="password" name="password"
+                                    class="form-control @error('password') is-invalid @enderror"
+                                    placeholder="Masukan password">
+                                @error('password')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label>Telp / WA</label>
+                                <input type="telp" name="telp"
+                                    class="form-control @error('telp') is-invalid @enderror"
+                                    placeholder="Masukan nomor telepon">
+                                @error('telp')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
 
                     <div class="container-login100-form-btn">
                         <button type="submit" class="login100-form-btn">
-                            Login
+                            DAFTAR
                         </button>
                     </div>
 
-                    <div class="text-center p-t-12">
-                        <span class="txt1">
-                            Lupa
-                        </span>
-                        <a class="txt2" href="#">
-                            Password ?
-                        </a>
-                    </div>
-
                     <div class="text-center p-t-136">
-                        <a class="txt2" href="{{ route('registrasi.index') }}">
-                            Belum punya akun ? Registrasi !
+                        <a class="txt2" href="/login">
+                            Sudah punya akun ? login !
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>
                     </div>

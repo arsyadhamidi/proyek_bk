@@ -13,9 +13,12 @@ use App\Http\Controllers\GuruBk\GuruBkLaporanController;
 use App\Http\Controllers\GuruBk\GuruBkSiswaBimbinganController;
 use App\Http\Controllers\Landing\LandingController;
 use App\Http\Controllers\Login\LoginController;
+use App\Http\Controllers\Registrasi\RegistrasiController;
 use App\Http\Controllers\Siswa\SiswaBimbinganOnlineController;
+use App\Http\Controllers\Siswa\SiswaBiodataController;
 use App\Http\Controllers\Siswa\SiswaMengajukanBimbinganController;
 use App\Http\Controllers\WaliKelas\WaliKelasLaporanController;
+use App\Http\Controllers\WaliKelas\WaliKelasSiswaController;
 use App\Http\Middleware\CekLevel;
 use Illuminate\Support\Facades\Route;
 
@@ -38,11 +41,17 @@ Route::get('/login', [LoginController::class, 'index'])->name('login')->middlewa
 Route::post('/login-action', [LoginController::class, 'authenticate']);
 Route::get('/logout-action', [LoginController::class, 'logout']);
 
+// Registrasi
+Route::get('/registrasi', [RegistrasiController::class, 'index'])->name('registrasi.index');
+Route::post('/registrasi/store', [RegistrasiController::class, 'store'])->name('registrasi.store');
+Route::get('/getkelasbyjurusan', [RegistrasiController::class, 'getKelasByJurusan']);
+
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
     // Profile
     Route::post('/setting-profile', [DashboardController::class, 'settingprofile']);
+    Route::post('/setting-email', [DashboardController::class, 'settingemail']);
     Route::post('/setting-password', [DashboardController::class, 'settingpassword']);
     Route::post('/setting-gambar', [DashboardController::class, 'settinggambar']);
     Route::post('/hapus-gambar', [DashboardController::class, 'hapusgambar']);
@@ -87,7 +96,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('buat-jadwal', GuruBkJadwalBimbinganController::class);
         Route::resource('bimbingan-siswa', GuruBkSiswaBimbinganController::class);
         Route::resource('gurubk-laporan', GuruBkLaporanController::class);
-        Route::resource('layanan-online', GuruBkBimbinganOnlineController::class);
+        Route::get('/layanan-online', [GuruBkBimbinganOnlineController::class, 'index'])->name('layanan-online.index');
+        Route::get('/layanan-online/show/{id}', [GuruBkBimbinganOnlineController::class, 'show'])->name('layanan-online.show');
+        Route::post('/layanan-online/store', [GuruBkBimbinganOnlineController::class, 'store'])->name('layanan-online.store');
+        Route::get('/pesan-gurubk', [GuruBkBimbinganOnlineController::class, 'pesanGuruBk']);
     });
 
     // Siswa
@@ -95,12 +107,23 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('mengajukan-bimbingan', SiswaMengajukanBimbinganController::class);
         Route::resource('bimbingan-online', SiswaBimbinganOnlineController::class);
 
+        // Siswa
+        Route::get('/biodata-siswa', [SiswaBiodataController::class, 'index'])->name('biodata-siswa.index');
+        Route::get('/biodata-siswa/create', [SiswaBiodataController::class, 'create'])->name('biodata-siswa.create');
+        Route::get('/biodata-siswa/edit/{id}', [SiswaBiodataController::class, 'edit'])->name('biodata-siswa.edit');
+        Route::post('/biodata-siswa/store', [SiswaBiodataController::class, 'store'])->name('biodata-siswa.store');
+        Route::post('/biodata-siswa/update/{id}', [SiswaBiodataController::class, 'update'])->name('biodata-siswa.update');
+        Route::get('/getjurusanbysiswa', [SiswaBiodataController::class, 'getJurusanBySiswa']);
+
         // jQuery
         Route::post('/jquery-gurubk', [SiswaMengajukanBimbinganController::class, 'jqueryGuruBk']);
+        Route::get('/bimbingan-getgurubkbydate', [SiswaMengajukanBimbinganController::class, 'getGuruBkByDate']);
+        Route::get('/get-jadwal-bimbingan/{id}', [SiswaMengajukanBimbinganController::class, 'getJadwalBimbingan']);
     });
 
     // Wali Kelas
     Route::group(['middleware' => [CekLevel::class . ':Wali Kelas']], function () {
         Route::resource('laporan-walikelas', WaliKelasLaporanController::class);
+        Route::get('siswa-walikelas', [WaliKelasSiswaController::class, 'index'])->name('siswa-walikelas.index');
     });
 });

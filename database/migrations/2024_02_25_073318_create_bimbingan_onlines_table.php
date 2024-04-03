@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('bimbingan_onlines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('siswa_id');
-            $table->foreignId('gurubk_id');
-            $table->string('layanan_online');
-            $table->string('keterangan_online');
-            $table->string('balasan_online')->nullable();
+            $table->foreignId('siswa_id')->nullable();
+            $table->foreignId('gurubk_id')->nullable();
+            $table->longText('pesan')->nullable();
+            $table->string('statusbimbingan');
+            $table->string('countpesan')->nullable();
             $table->timestamps();
         });
     }

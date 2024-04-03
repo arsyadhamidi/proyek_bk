@@ -29,7 +29,7 @@
                     <hr>
                     <div class="form-group mb-3">
                         <label><strong>Username</strong></label>
-                        <p><i>{{ Auth()->user()->username }}</i></p>
+                        <p><i>{{ Auth()->user()->email }}</i></p>
                     </div>
                     <hr>
                     <div class="form-group mb-3">
@@ -55,6 +55,7 @@
                     <ul class="nav nav-pills">
                         <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Profile</a>
                         </li>
+                        <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Email Address</a></li>
                         <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Password</a></li>
                         <li class="nav-item"><a class="nav-link" href="#profile" data-toggle="tab">Ganti Gambar</a></li>
                     </ul>
@@ -87,10 +88,36 @@
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <button type="submit" class="btn bg-gradient-primary">Simpan</button>
+                                    <button type="submit" class="btn bg-gradient-success">Simpan</button>
                                 </div>
                             </form>
 
+                        </div>
+
+                        <div class="tab-pane" id="timeline">
+                            <form action="/setting-email" method="POST">
+                                @csrf
+                                <div class="form-group mb-3">
+                                    <label>Email Address</label>
+                                    <input type="text" name="old_email" class="form-control"
+                                        value="{{ Auth()->user()->email }}">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label>Email Baru</label>
+                                    <input type="text" name="email"
+                                        class="form-control @error('email') is-invalid @enderror"
+                                        placeholder="Masukan email address">
+                                    @error('email')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <button type="submit" class="btn bg-gradient-success">Simpan</button>
+                                </div>
+                            </form>
                         </div>
 
                         <div class="tab-pane" id="settings">
@@ -108,7 +135,7 @@
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <button type="submit" class="btn bg-gradient-primary">Simpan</button>
+                                    <button type="submit" class="btn bg-gradient-success">Simpan</button>
                                 </div>
                             </form>
                         </div>
@@ -118,11 +145,16 @@
                                 @csrf
                                 <div class="form-group mb-3">
                                     <label>Upload Gambar</label>
-                                    <input type="file" name="foto_profile" class="form-control">
+                                    <div class="custom-file">
+                                        <input type="file" name="foto_profile" class="custom-file-input"
+                                            id="customFile" onchange="previewImage()">
+                                        <label class="custom-file-label" for="customFile">Choose
+                                            file</label>
+                                    </div>
                                 </div>
 
                                 <div class="form-group mb-3 d-flex flex-wrap">
-                                    <button type="submit" class="btn bg-gradient-primary">Simpan</button>
+                                    <button type="submit" class="btn bg-gradient-success">Simpan</button>
                             </form>
                             @if (Auth()->user()->foto_profile)
                                 <form action="/hapus-gambar" method="POST" enctype="multipart/form-data">

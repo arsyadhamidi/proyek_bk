@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg">
-            <div class="card">
+            <div class="card card-outline card-primary">
                 <div class="card-header">
                     <a href="{{ route('laporan-walikelas.create') }}" class="btn bg-gradient-primary">
                         <i class="fas fa-plus"></i>
@@ -21,7 +21,7 @@
                         </div>
                     @endif
                     <table class="table table-bordered table-striped" id="myTable">
-                        <thead>
+                        <thead class="bg-gradient-primary">
                             <tr>
                                 <th>No.</th>
                                 <th>Wali Kelas</th>
@@ -49,7 +49,7 @@
                                                 class="badge badge-secondary">{{ $data->status_laporan ?? 'Tidak Tersedia' }}</span>
                                         @endif
                                     </td>
-                                    <td>{{ $data->laporan_siswa ?? '-' }}</td>
+                                    <td>{!! $data->laporan_siswa ?? '-' !!}</td>
                                     <td class="d-flex">
                                         @if ($data->status_laporan == 'Selesai')
                                             <button type="button" class="btn btn-sm bg-gradient-info" disabled>

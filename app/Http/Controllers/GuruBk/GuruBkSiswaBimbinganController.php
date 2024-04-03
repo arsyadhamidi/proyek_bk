@@ -4,7 +4,6 @@ namespace App\Http\Controllers\GuruBk;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bimbingan;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -20,7 +19,7 @@ class GuruBkSiswaBimbinganController extends Controller
 
         // Jika jumlah bimbingan belum mencapai batas, tampilkan bimbingan
         return view('guru-bk.bimbingan.index', [
-            'bimbingans' => Bimbingan::where('gurubk_id', $guruBkId)->whereDate('tgl_bimbingan', Carbon::today())->limit(10)->get(),
+            'bimbingans' => Bimbingan::where('gurubk_id', $guruBkId)->limit(10)->get(),
         ]);
     }
 

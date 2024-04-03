@@ -2,12 +2,12 @@
 @section('menuJadwalBimbingan', 'active')
 
 @section('content')
-    <div class="rw">
+    <div class="row">
         <div class="col-lg">
             <form action="{{ route('buat-jadwal.update', $jadwals->id) }}" method="POST">
                 @method('PUT')
                 @csrf
-                <div class="card">
+                <div class="card card-outline card-primary">
                     <div class="card-header">
                         <a href="{{ route('buat-jadwal.index') }}" class="btn btn-default">
                             <i class="fas fa-arrow-left"></i>

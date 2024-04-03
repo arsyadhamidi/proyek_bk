@@ -48,7 +48,7 @@
         @foreach ($bimbingans as $data)
             <tr>
                 <td style="border: 1px solid black;">{{ $loop->iteration }}</td>
-                <td style="border: 1px solid black;">{{ $data->siswa->nama_siswa ?? '-' }}</td>
+                <td style="border: 1px solid black;">{{ $data->user->name ?? '-' }}</td>
                 <td style="border: 1px solid black;">{{ $data->jadwal->hari_jadwal ?? '-' }}</td>
                 <td style="border: 1px solid black;">{{ $data->tgl_bimbingan ?? '-' }}</td>
                 <td style="border: 1px solid black;">{{ $data->status_bimbingan ?? '-' }}</td>

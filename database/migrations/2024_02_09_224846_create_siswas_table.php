@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('siswas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('users_id')->nullable();
             $table->string('nisn_siswa')->unique();
             $table->string('nama_siswa');
             $table->enum('jk_siswa', ['Laki-Laki', 'Perempuan']);
@@ -21,14 +22,9 @@ return new class extends Migration
             $table->string('alamat_siswa');
             $table->foreignId('jurusan_id');
             $table->foreignId('kelas_id');
-            $table->string('agama_siswa');
             $table->string('telp_siswa');
             $table->string('telp_ortu_siswa');
             $table->string('email_siswa')->unique();
-            $table->date('tgl_masuk_siswa');
-            $table->date('tgl_lulus_siswa')->nullable();
-            $table->string('nilai_siswa')->nullable();
-            $table->string('keterangan_siswa')->nullable();
             $table->string('status_siswa')->nullable();
             $table->timestamps();
         });

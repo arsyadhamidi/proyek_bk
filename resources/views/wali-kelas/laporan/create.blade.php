@@ -43,7 +43,7 @@
                             <div class="col-lg">
                                 <label>Keterangan Laporan</label>
                                 <textarea name="laporan_siswa" rows="5" class="form-control @error('laporan_siswa') is-invalid @enderror"
-                                    placeholder="Masukan keterangan laporan">{{ old('laporan_siswa') }}</textarea>
+                                    placeholder="Masukan keterangan laporan" id="editor">{{ old('laporan_siswa') }}</textarea>
                                 @error('laporan_siswa')
                                     <div class="invalid-feedback">
                                         {{ $message }}

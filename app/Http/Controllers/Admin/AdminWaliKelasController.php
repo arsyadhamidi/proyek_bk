@@ -105,7 +105,6 @@ class AdminWaliKelasController extends Controller
             'telp_walikelas' => 'required|min:10',
             'jurusan_id' => 'required',
             'kelas_id' => 'required',
-            'email_walikelas' => 'required|unique:wali_kelas',
         ], [
             'nip_walikelas.required' => 'NIP / Kode Wali Kelas wajib diisi',
             'nama_walikelas.required' => 'Nama Wali Kelas wajib diisi',
@@ -115,8 +114,6 @@ class AdminWaliKelasController extends Controller
             'nip_walikelas.min' => 'Nip Wali Kelas minimal 4 karakter',
             'nama_walikelas.min' => 'Nama Wali Kelas minimal 4 karakter',
             'telp_walikelas.min' => 'Telp Wali Kelas minimal 10 karakter',
-            'email_walikelas.required' => 'Email Wali Kelas wajib diisi',
-            'email_walikelas.unique' => 'Email Wali Kelas sudah tersedia',
             'telp_walikelas.required' => 'Telp Wali Kelas wajib diisi',
         ]);
 
@@ -139,7 +136,6 @@ class AdminWaliKelasController extends Controller
 
         User::where('walikelas_id', $id)->update([
             'name' => $validated['nama_walikelas'],
-            'email' => $validated['email_walikelas'],
             'password' => bcrypt('12345678'),
             'duplicate' => '12345678',
             'telp' => $validated['telp_walikelas'],

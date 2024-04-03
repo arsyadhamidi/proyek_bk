@@ -265,6 +265,13 @@
                                 </a>
                             </li>
                         @elseif(Auth()->user()->level == 'Siswa')
+                            {{-- Input Data Siswa --}}
+                            <li class="nav-item">
+                                <a href="{{ route('biodata-siswa.index') }}" class="nav-link @yield('menuInputDataSiswa')">
+                                    <i class="nav-icon fas fa-user-tie"></i>
+                                    <p>Biodata Siswa</p>
+                                </a>
+                            </li>
                             {{--  Melakukan Bimbingan  --}}
                             <li class="nav-item">
                                 <a href="{{ route('mengajukan-bimbingan.index') }}"
@@ -282,6 +289,13 @@
                                 </a>
                             </li>
                         @elseif (Auth()->user()->level == 'Wali Kelas')
+                            {{-- Data Siswa --}}
+                            <li class="nav-item">
+                                <a href="{{ route('siswa-walikelas.index') }}" class="nav-link @yield('menuSiswaWaliKelas')">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Data Siswa</p>
+                                </a>
+                            </li>
                             {{--  Laporan Wali Kelas  --}}
                             <li class="nav-item">
                                 <a href="{{ route('laporan-walikelas.index') }}" class="nav-link @yield('menuLaporanWaliKelas')">
@@ -367,6 +381,10 @@
     <script src="{{ asset('admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
     <script src="{{ asset('js/preview.js') }}"></script>
     <script src="{{ asset('admin/plugins/toastr/toastr.min.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
     <script>
         $(function() {
             bsCustomFileInput.init();
@@ -376,6 +394,13 @@
         $(document).ready(function() {
             $('#myTable').DataTable();
         });
+    </script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
     </script>
     @stack('custom-script')
 </body>

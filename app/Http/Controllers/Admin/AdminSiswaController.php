@@ -22,6 +22,7 @@ class AdminSiswaController extends Controller
     {
         return view('admin.siswa.show', [
             'siswas' => Siswa::where('kelas_id', $id)->latest()->get(),
+            'kelass' => Siswa::where('kelas_id', $id)->first(),
         ]);
     }
 
