@@ -54,6 +54,6 @@ class GuruBkSiswaBimbinganController extends Controller
 
         $pdf = PDF::loadview('guru-bk.bimbingan.export-pdf', ['bimbingans' => $bimbingans]);
         $pdf->setPaper('a4', 'portrait');
-        return $pdf->stream('laporan-bimbingan-pdf');
+        return $pdf->stream('laporan-bimbingan.pdf');
     }
 }
